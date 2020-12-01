@@ -139,16 +139,6 @@
 	NODE(1, RELATION('=', 1)),\
 	NODE()\
 )
-
-#define FST_LOWER FST(2, LEX_LOWER,\
-	NODE(1, RELATION('<', 1)),\
-	NODE()\
-)
-
-#define FST_HIGHER FST(2, LEX_HIGHER,\
-	NODE(1, RELATION('>', 1)),\
-	NODE()\
-)
 #pragma endregion
 
 #pragma region LITERALS

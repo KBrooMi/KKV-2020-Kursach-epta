@@ -37,7 +37,7 @@ extern "C" {
 		if (buffer == NULL)
 			return NULL;
 
-		int bin = 0, i = 1;
+		unsigned long bin = 0, i = 1;
 		while (number) {
 			bin += (number % 2) * i;
 			i *= 10;

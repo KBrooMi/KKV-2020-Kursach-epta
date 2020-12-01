@@ -31,8 +31,6 @@
 #define LEX_CONCAT 's'
 #define LEX_COPY 'c'
 #define LEX_WHILE 'w'
-#define LEX_LOWER '<'
-#define LEX_HIGHER '>'
 #define LEX_HEADOFFUNC '@'
 #pragma endregion
 

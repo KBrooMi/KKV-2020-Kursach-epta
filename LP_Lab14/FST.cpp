@@ -97,7 +97,7 @@ void FST::Recognize(std::vector<std::pair<int, std::string>> lexems, std::ostrea
 	FST fst_arr[] = { FST_INTEGER, FST_MAIN , FST_PRINT , FST_RETURN , FST_DECLARE , FST_STRING , FST_FUNCTION ,
 		FST_LEFT_BRACKET , FST_RIGHT_BRACKET , FST_LEFT_BRACE , FST_RIGHT_BRACE , FST_PLUS , FST_MINUS , FST_MULTI ,
 		FST_DIVISION , FST_COMMA, FST_SEMICOLON, FST_EQUALLY, FST_NUMBERS, FST_LEFTSQUARE, FST_RIGHTSQUARE,
-		FST_PERCENT, FST_CONCAT, FST_COPY, FST_WHILE, FST_HIGHER, FST_LOWER, FST_ID, FST_STRING_LITERAL };
+		FST_PERCENT, FST_CONCAT, FST_COPY, FST_WHILE, FST_ID, FST_STRING_LITERAL };
 	int size = sizeof(fst_arr) / sizeof(FST), it_id = -1, currentLiteral = 0;
 	bool param = false, _main = false, libFunc = false;
 #pragma endregion

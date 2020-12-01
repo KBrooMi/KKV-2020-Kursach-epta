@@ -36,7 +36,7 @@ int _tmain(int argc, _TCHAR* argv[]) {
 		log = Log::getlog(parm.log);
 		Log::WriteLog(log);
 		Log::WriteParm(log, parm);
-		In::IN in = In::getin(parm.in, parm.out);
+		In::IN in = In::getin(parm.in);
 		Log::WriteIn(log, in);
 		LT::LexTable lextable = LT::Create((int)in.lexems.size());
 		IT::IdTable idtable = IT::Create((int)in.lexems.size());
@@ -115,4 +115,4 @@ int _tmain(int argc, _TCHAR* argv[]) {
 	system("pause");
 #endif
 	return 0;
-	}
+}
