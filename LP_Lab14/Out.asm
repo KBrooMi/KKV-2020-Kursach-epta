@@ -21,10 +21,11 @@ ConsoleWrite PROTO : DWORD
 	l6 BYTE 'Hello, ', 0
 	l7 BYTE 'World!', 0
 	l8 BYTE 'Операции со строками', 0
-	l9 BYTE 'Работа с функциями', 0
-	l10 BYTE 'Начало цикла', 0
-	l11 BYTE 'Конец цикла', 0
-	l12 DWORD 00000000y
+	l9 BYTE 'asd', 0
+	l10 BYTE 'Работа с функциями', 0
+	l11 BYTE 'Начало цикла', 0
+	l12 BYTE 'Конец цикла', 0
+	l13 DWORD 00000000y
 .data
 	Sumsum			DWORD 0
 	Raznsub			DWORD 0
@@ -245,7 +246,7 @@ main PROC
 	call		ConsoleWrite
 
 	push		offset mainsb
-	push		mainsa
+	push		l9
 	call		Copy
 	push		mainsb
 	call		ConsoleWrite
@@ -259,7 +260,7 @@ main PROC
 	push		l2
 	pop			mainy
 
-	push		offset l9
+	push		offset l10
 	call		ConsoleWrite
 
 	push		mainx
@@ -317,13 +318,13 @@ main PROC
 	push		eax
 	call		ConsoleWrite
 
-	push		offset l9
+	push		offset l10
 	call		ConsoleWrite
 
 	push		l3
 	pop			mainiterator
 
-	push		offset l10
+	push		offset l11
 	call		ConsoleWrite
 
 	.while		mainiterator
@@ -336,10 +337,10 @@ main PROC
 	dec			mainiterator
 	;/\Тело цикла/\
 	.endw
-	push		offset l11
+	push		offset l12
 	call		ConsoleWrite
 
-	push		l12
+	push		l13
 	call		ExitProcess
 main ENDP
 end main

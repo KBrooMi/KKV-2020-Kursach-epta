@@ -92,7 +92,24 @@ void SA::SemanticAnalyzer::ParmsOfStandFunc()
 				throw ERROR_THROW_SEM(704, lextable.table[i].sn);
 			break;
 		}
-		case LEX_COPY:
+		case LEX_COPY: {
+			int parmsCount = 0;
+			while (lextable.table[i].lexema != LEX_SEMICOLON) {
+				i++;
+				if (parmsCount > 0) {
+					if (lextable.table[i].lexema == LEX_LITERAL)
+						throw ERROR_THROW_SEM(709, lextable.table[i].sn);
+				}
+				if (lextable.table[i].lexema == LEX_ID || lextable.table[i].lexema == LEX_LITERAL) {
+					parmsCount++;
+					if (idtable.table[lextable.table[i].idxTI].iddatatype != IT::IDDATATYPE::STR)
+						throw ERROR_THROW_SEM(702, lextable.table[i].sn);
+				}
+			}
+			if (parmsCount != 2)
+				throw ERROR_THROW_SEM(703, lextable.table[i].sn);
+			break;
+		}
 		case LEX_CONCAT: {
 			int parmsCount = 0;
 			while (lextable.table[i].lexema != LEX_SEMICOLON) {
