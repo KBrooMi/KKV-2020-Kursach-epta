@@ -4,10 +4,10 @@ includelib libucrt.lib
 includelib kernel32.lib
 includelib ../LP_LIB/Debug/LP_Lib.lib
 ExitProcess PROTO : DWORD
-EXTRN Concat		: PROC
-EXTRN ConvertToChar		: PROC
-EXTRN Copy		: PROC
-EXTRN ConsoleWrite		: PROC
+Concat PROTO : DWORD, :DWORD
+ConvertToChar PROTO : DWORD
+Copy PROTO : DWORD, : DWORD
+ConsoleWrite PROTO : DWORD
 
 
 .stack 4096
@@ -57,7 +57,7 @@ Sum PROC b: DWORD, a: DWORD
 	pop			Sumsum
 
 	mov		eax, Sumsum
-	ret
+	ret		8
 Sum ENDP
 
 Razn PROC b: DWORD, a: DWORD
@@ -72,7 +72,7 @@ Razn PROC b: DWORD, a: DWORD
 	pop			Raznsub
 
 	mov		eax, Raznsub
-	ret
+	ret		8
 Razn ENDP
 
 Multi PROC b: DWORD, a: DWORD
@@ -87,7 +87,7 @@ Multi PROC b: DWORD, a: DWORD
 	pop			Multimul
 
 	mov		eax, Multimul
-	ret
+	ret		8
 Multi ENDP
 
 Division PROC b: DWORD, a: DWORD
@@ -103,7 +103,7 @@ Division PROC b: DWORD, a: DWORD
 	pop			Divisiondiv
 
 	mov		eax, Divisiondiv
-	ret
+	ret		8
 Division ENDP
 
 RemOfDiv PROC b: DWORD, a: DWORD
@@ -119,7 +119,7 @@ RemOfDiv PROC b: DWORD, a: DWORD
 	pop			RemOfDivremofdiv
 
 	mov		eax, RemOfDivremofdiv
-	ret
+	ret		8
 RemOfDiv ENDP
 
 main PROC

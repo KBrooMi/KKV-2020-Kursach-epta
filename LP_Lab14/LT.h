@@ -39,18 +39,18 @@
 namespace LT {
 	struct Entry {
 		char lexema;
-		int sn; //q Номер строки в исходном коде
-		int idxTI; //q индекс в табллице идентификаторов (default = LT_TI_NULLIDX)
+		int sn;
+		int idxTI;
 	};
 
 	struct LexTable {
 		int maxsize;
-		int size; //q Текущий размер < maxsize
+		int size;
 		Entry* table;
 	};
 
 	LexTable Create(int size);
 	void Add(LexTable& lextable, Entry entry);
-	Entry GetEntry(LexTable& lextable, int n); //q n - номер получаемой строки
+	Entry GetEntry(LexTable& lextable, int n);
 	void Delete(LexTable& lextable);
 }

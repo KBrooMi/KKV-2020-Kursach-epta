@@ -26,10 +26,10 @@ void CG::Generator::Head()
 	out << "includelib kernel32.lib\n";
 	out << "includelib ../LP_LIB/Debug/LP_Lib.lib\n";
 	out << "ExitProcess PROTO : DWORD\n";
-	out << "EXTRN Concat\t\t: PROC\n";
-	out << "EXTRN ConvertToChar\t\t: PROC\n";
-	out << "EXTRN Copy\t\t: PROC\n";
-	out << "EXTRN ConsoleWrite\t\t: PROC\n\n";
+	out << "Concat PROTO : DWORD, :DWORD\n";
+	out << "ConvertToChar PROTO : DWORD\n";
+	out << "Copy PROTO : DWORD, : DWORD\n";
+	out << "ConsoleWrite PROTO : DWORD\n\n";
 	out << "\n.stack 4096\n";
 }
 
@@ -50,7 +50,6 @@ void CG::Generator::Constants()
 
 void CG::Generator::Data()
 {
-	std::vector<char> operators = { LEX_MINUS, LEX_PLUS, LEX_DIRSLASH, LEX_STAR, LEX_PERCENT };
 	out << ".data\n";
 	for (int i = 0; i < idtable.size; i++)
 		if (idtable.table[i].idtype == IT::IDTYPE::V) {
@@ -67,6 +66,7 @@ void CG::Generator::Code()
 	int indOflex = -1;
 	bool func = false;
 	bool main = false;
+	int stackRet = 0;
 	IT::Entry whileIterator;
 	for (int i = 0; i < lextable.size; i++) {
 		switch (lextable.table[i].lexema) {
@@ -83,6 +83,7 @@ void CG::Generator::Code()
 			{
 				if (lextable.table[i].lexema == LEX_ID)
 				{
+					stackRet += 4;
 					out << idtable.table[lextable.table[i].idxTI].id << ": DWORD";
 					if (lextable.table[i - 2].lexema != LEX_LEFTHESIS)
 						out << ", ";
@@ -127,11 +128,12 @@ void CG::Generator::Code()
 						out << "\tmov\t\teax, " << idtable.table[lextable.table[i + 1].idxTI].scope
 						<< idtable.table[lextable.table[i + 1].idxTI].id << "\n\tret\n";
 					else
-						out << "\tmov\t\teax, offset " << idtable.table[lextable.table[i + 1].idxTI].literalID << "\n\tret\n";
+						out << "\tmov\t\teax, offset " << idtable.table[lextable.table[i + 1].idxTI].literalID << "\n\tret\t\t" << stackRet << std::endl;
 				}
 				else
 					out << "\tmov\t\teax, " << idtable.table[lextable.table[i + 1].idxTI].scope
-					<< idtable.table[lextable.table[i + 1].idxTI].id << "\n\tret\n";
+					<< idtable.table[lextable.table[i + 1].idxTI].id << "\n\tret\t\t" << stackRet << std::endl;
+				stackRet = 0;
 			}
 			break;
 		}

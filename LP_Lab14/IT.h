@@ -41,7 +41,7 @@ namespace IT {
 	void Add(IdTable& idtable, const Entry& entry);
 	Entry GetEntry(IdTable& idtable, int n);
 	bool is_digit(std::string str);
-	int IsId(IdTable& idtable, const char id[ID_MAXSIZE], const char prefix[ID_SCOPE_SIZE]); //q ¬озврат номера строки, если существует || TI_NULLIDX
+	int IsId(IdTable& idtable, const char id[ID_MAXSIZE], const char prefix[ID_SCOPE_SIZE]);
 	int LiteralRepeat(IdTable& idtable, std::string literal);
 	void Delete(IdTable& idtable);
 }

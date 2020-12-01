@@ -97,7 +97,7 @@ void SA::SemanticAnalyzer::ParmsOfStandFunc()
 			int parmsCount = 0;
 			while (lextable.table[i].lexema != LEX_SEMICOLON) {
 				i++;
-				if (lextable.table[i].lexema == LEX_ID) {
+				if (lextable.table[i].lexema == LEX_ID || lextable.table[i].lexema == LEX_LITERAL) {
 					parmsCount++;
 					if (idtable.table[lextable.table[i].idxTI].iddatatype != IT::IDDATATYPE::STR)
 						throw ERROR_THROW_SEM(702, lextable.table[i].sn);
@@ -120,12 +120,8 @@ void SA::SemanticAnalyzer::Types()
 			while (lextable.table[i].lexema != LEX_SEMICOLON) {
 				i++;
 				if ((lextable.table[i].lexema == LEX_ID || lextable.table[i].lexema == LEX_LITERAL)
-					&& idtable.table[lextable.table[i].idxTI].iddatatype != datatype) {
-					if (idtable.table[lextable.table[i].idxTI].idtype == IT::IDTYPE::F)
-						throw ERROR_THROW_SEM(705, lextable.table[i].sn);
-					else
-						throw ERROR_THROW_SEM(706, lextable.table[i].sn);
-				}
+					&& idtable.table[lextable.table[i].idxTI].iddatatype != datatype)
+					throw ERROR_THROW_SEM(706, lextable.table[i].sn);
 				else if (lextable.table[i].lexema == LEX_ID
 					&& idtable.table[lextable.table[i].idxTI].idtype != IT::IDTYPE::F
 					&& lextable.table[i + 1].lexema == LEX_LEFTHESIS)
@@ -183,17 +179,4 @@ void SA::SemanticAnalyzer::CorrectAmountOfParms()
 			if (funcparms != parms)
 				throw ERROR_THROW_SEM(701, lextable.table[i].sn);
 		}
-}
-
-//todo +-+-+-+-+-+-+- OK +-+-+-+-+-+-+-
-void SA::SemanticAnalyzer::CheckWhile()
-{
-	for (int i = 0; i < lextable.size; i++)
-		if (lextable.table[i].lexema == LEX_WHILE)
-			while (lextable.table[i].lexema != LEX_LEFTSQUARE) {
-				i++;
-				if (lextable.table[i].lexema == LEX_ID
-					&& idtable.table[lextable.table[i].idxTI].iddatatype != IT::IDDATATYPE::INT)
-					throw ERROR_THROW_SEM(710, lextable.table[i].sn);
-			}
 }

@@ -29,7 +29,7 @@ Error::ERROR errors[ERROR_MAX_ENTRY] = {
 	ERROR_ENTRY(121, "[LA]: Используется необъявленный идентификатор"),
 	ERROR_ENTRY(122, "[LA]: Переполнение таблицы идентификаторов"),
 	ERROR_ENTRY(123, "[LA]: Переполнение таблицы лексем"),
-	ERROR_ENTRY(124, "[LA]: Отсутствует точка входа"),	//!<-Если определить два мэйна, один из которых находится внутри функции
+	ERROR_ENTRY(124, "[LA]: Отсутствует точка входа"),									//!<-Если определить два мэйна, один из которых находится внутри функции
 	ERROR_ENTRY(125, "[LA]: Обнаружено несколько точек входа"),
 	ERROR_ENTRY(126, "[LA]: У точки входа нет тела"),
 	ERROR_ENTRY(127, "[LA]: Несогласованность скобок"),
@@ -69,8 +69,8 @@ Error::ERROR errors[ERROR_MAX_ENTRY] = {
 	ERROR_ENTRY(706, "[SemA]: Несоответсвие присваимаего типа данных"),
 	ERROR_ENTRY(707, "[SemA]: Несоответствие типа функции и возвращаемого значения"),
 	ERROR_ENTRY(708, "[SemA]: Main Должен возвращать числовое значение"),
-	ERROR_ENTRY(709, "[SemA]: Использование имени переменной в качестве функции"),
-	ERROR_ENTRY(710, "[SemA]: Ошибка в выражении цикла"),
+	ERROR_ENTRY_NODEF(709),
+	ERROR_ENTRY_NODEF(710),
 	ERROR_ENTRY_NODEF(711), ERROR_ENTRY_NODEF(712), ERROR_ENTRY_NODEF(713),ERROR_ENTRY_NODEF(714),ERROR_ENTRY_NODEF(715),
 	ERROR_ENTRY_NODEF(716),ERROR_ENTRY_NODEF(717),ERROR_ENTRY_NODEF(718),ERROR_ENTRY_NODEF(719),
 	ERROR_ENTRY_NODEF10(720), ERROR_ENTRY_NODEF10(730), ERROR_ENTRY_NODEF10(740),
