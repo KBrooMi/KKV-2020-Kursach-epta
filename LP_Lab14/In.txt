@@ -66,7 +66,8 @@ main{
 	console concatenated;
 	
 	new func Copy(str origin, str destination);
-	Copy(sa, sb);
+	new dec r;
+	r = Copy(sa, sb);
 	console sb;
 	console 'Операции со строками';
 

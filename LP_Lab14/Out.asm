@@ -5,7 +5,6 @@ includelib kernel32.lib
 includelib ../LP_LIB/Debug/LP_Lib.lib
 ExitProcess PROTO : DWORD
 Concat PROTO : DWORD, :DWORD
-ConvertToChar PROTO : DWORD
 Copy PROTO : DWORD, : DWORD
 ConsoleWrite PROTO : DWORD
 ConsoleWriteInt PROTO : DWORD
@@ -42,6 +41,7 @@ ConsoleWriteInt PROTO : DWORD
 	mainsa			DWORD 0
 	mainsb			DWORD 0
 	mainconcatenated			DWORD 0
+	mainr			DWORD 0
 	mainx			DWORD 0
 	mainy			DWORD 0
 	mainout			DWORD 0
@@ -243,9 +243,12 @@ main PROC
 	push		mainconcatenated
 	call		ConsoleWrite
 
-	push		offset mainsb
 	push		mainsa
+	push		mainsb
 	call		Copy
+	push		eax
+	pop			mainr
+
 	push		mainsb
 	call		ConsoleWrite
 

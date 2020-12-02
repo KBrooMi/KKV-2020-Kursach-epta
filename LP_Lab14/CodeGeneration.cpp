@@ -27,7 +27,6 @@ void CG::Generator::Head()
 	out << "includelib ../LP_LIB/Debug/LP_Lib.lib\n";
 	out << "ExitProcess PROTO : DWORD\n";
 	out << "Concat PROTO : DWORD, :DWORD\n";
-	out << "ConvertToChar PROTO : DWORD\n";
 	out << "Copy PROTO : DWORD, : DWORD\n";
 	out << "ConsoleWrite PROTO : DWORD\n";
 	out << "ConsoleWriteInt PROTO : DWORD\n\n";
