@@ -8,24 +8,25 @@ Concat PROTO : DWORD, :DWORD
 ConvertToChar PROTO : DWORD
 Copy PROTO : DWORD, : DWORD
 ConsoleWrite PROTO : DWORD
+ConsoleWriteInt PROTO : DWORD
 
 
 .stack 4096
 .const
-	l0 DWORD 00000001y
-	l1 DWORD 00000010y
-	l2 DWORD 00000101y
-	l3 DWORD 00001010y
-	l4 DWORD 00000011y
-	l5 BYTE 'Арифметические операции', 0
-	l6 BYTE 'Hello, ', 0
-	l7 BYTE 'World!', 0
-	l8 BYTE 'Операции со строками', 0
-	l9 BYTE 'asd', 0
+	l0 DWORD 00000000000000000000000000000001y
+	l1 DWORD 00000000000000000000000000000010y
+	l2 DWORD 00000000000000000000000000000101y
+	l3 DWORD 00000000000000000000000000001010y
+	l4 DWORD 00000000000000000000000000000011y
+	l5 DWORD 11111111111111111111111111111111y
+	l6 BYTE 'Арифметические операции', 0
+	l7 BYTE 'Hello, ', 0
+	l8 BYTE 'World!', 0
+	l9 BYTE 'Операции со строками', 0
 	l10 BYTE 'Работа с функциями', 0
 	l11 BYTE 'Начало цикла', 0
 	l12 BYTE 'Конец цикла', 0
-	l13 DWORD 00000000y
+	l13 DWORD 00000000000000000000000000000000y
 .data
 	Sumsum			DWORD 0
 	Raznsub			DWORD 0
@@ -37,6 +38,7 @@ ConsoleWrite PROTO : DWORD
 	mainc			DWORD 0
 	maind			DWORD 0
 	maine			DWORD 0
+	mainf			DWORD 0
 	mainsa			DWORD 0
 	mainsb			DWORD 0
 	mainconcatenated			DWORD 0
@@ -190,44 +192,40 @@ main PROC
 	;/\Остаток от деления/\
 	pop			maine
 
-	push		offset l5
+	push		l5
+	pop			mainf
+
+	push		offset l6
 	call		ConsoleWrite
 
 	push		maina
-	call		ConvertToChar
-	push		eax
-	call		ConsoleWrite
+	call		ConsoleWriteInt
 
 	push		mainb
-	call		ConvertToChar
-	push		eax
-	call		ConsoleWrite
+	call		ConsoleWriteInt
 
 	push		mainc
-	call		ConvertToChar
-	push		eax
-	call		ConsoleWrite
+	call		ConsoleWriteInt
 
 	push		maind
-	call		ConvertToChar
-	push		eax
-	call		ConsoleWrite
+	call		ConsoleWriteInt
 
 	push		maine
-	call		ConvertToChar
-	push		eax
-	call		ConsoleWrite
+	call		ConsoleWriteInt
 
-	push		offset l5
-	call		ConsoleWrite
+	push		mainf
+	call		ConsoleWriteInt
 
 	push		offset l6
-	pop			mainsa
+	call		ConsoleWrite
 
 	push		offset l7
-	pop			mainsb
+	pop			mainsa
 
 	push		offset l8
+	pop			mainsb
+
+	push		offset l9
 	call		ConsoleWrite
 
 	push		mainsa
@@ -246,12 +244,12 @@ main PROC
 	call		ConsoleWrite
 
 	push		offset mainsb
-	push		l9
+	push		mainsa
 	call		Copy
 	push		mainsb
 	call		ConsoleWrite
 
-	push		offset l8
+	push		offset l9
 	call		ConsoleWrite
 
 	push		l3
@@ -270,9 +268,7 @@ main PROC
 	pop			mainout
 
 	push		mainout
-	call		ConvertToChar
-	push		eax
-	call		ConsoleWrite
+	call		ConsoleWriteInt
 
 	push		mainx
 	push		mainy
@@ -281,9 +277,7 @@ main PROC
 	pop			mainout
 
 	push		mainout
-	call		ConvertToChar
-	push		eax
-	call		ConsoleWrite
+	call		ConsoleWriteInt
 
 	push		mainx
 	push		mainy
@@ -292,9 +286,7 @@ main PROC
 	pop			mainout
 
 	push		mainout
-	call		ConvertToChar
-	push		eax
-	call		ConsoleWrite
+	call		ConsoleWriteInt
 
 	push		mainx
 	push		mainy
@@ -303,9 +295,7 @@ main PROC
 	pop			mainout
 
 	push		mainout
-	call		ConvertToChar
-	push		eax
-	call		ConsoleWrite
+	call		ConsoleWriteInt
 
 	push		mainx
 	push		mainy
@@ -314,9 +304,7 @@ main PROC
 	pop			mainout
 
 	push		mainout
-	call		ConvertToChar
-	push		eax
-	call		ConsoleWrite
+	call		ConsoleWriteInt
 
 	push		offset l10
 	call		ConsoleWrite
@@ -330,9 +318,7 @@ main PROC
 	.while		mainiterator
 	;\/Тело цикла\/
 	push		mainiterator
-	call		ConvertToChar
-	push		eax
-	call		ConsoleWrite
+	call		ConsoleWriteInt
 
 	dec			mainiterator
 	;/\Тело цикла/\

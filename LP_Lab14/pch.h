@@ -21,3 +21,4 @@
 #include "stdarg.h"
 #include <sstream>
 #include <algorithm>
+#include <bitset>

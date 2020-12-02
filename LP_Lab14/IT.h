@@ -22,11 +22,12 @@ namespace IT {
 		IDDATATYPE iddatatype;
 		IDTYPE idtype;
 		union Value {
-			int vint;
+			std::bitset<32> vint;
 			struct String {
 				size_t len;
 				char str[TI_STR_MAXSIZE];
 			} vstr;
+			Value();
 		} value;
 		Entry() = default;
 		Entry(int idxfirstLE, const char* id, const char* scope, const char* literalID, IDDATATYPE iddatatype, IDTYPE idtype, std::string value);

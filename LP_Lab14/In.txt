@@ -34,12 +34,14 @@ main{
 	new dec c;
 	new dec d;
 	new dec e;
+	new dec f;
 	
 	a = (1 + 10) - (10 + 1);
 	b = 10 - 1;
 	c = 10 * 0101;
 	d = 1010 / 10;
 	e = 1010 % 11;
+	f = 11111111111111111111111111111111;
 	
 	console 'Арифметические операции';
 	console a;
@@ -47,6 +49,7 @@ main{
 	console c;
 	console d;
 	console e;
+	console f;
 	console 'Арифметические операции';
 
 	new str sa;

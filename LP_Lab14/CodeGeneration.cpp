@@ -29,7 +29,8 @@ void CG::Generator::Head()
 	out << "Concat PROTO : DWORD, :DWORD\n";
 	out << "ConvertToChar PROTO : DWORD\n";
 	out << "Copy PROTO : DWORD, : DWORD\n";
-	out << "ConsoleWrite PROTO : DWORD\n\n";
+	out << "ConsoleWrite PROTO : DWORD\n";
+	out << "ConsoleWriteInt PROTO : DWORD\n\n";
 	out << "\n.stack 4096\n";
 }
 
@@ -43,7 +44,7 @@ void CG::Generator::Constants()
 			if (idtable.table[i].iddatatype == IT::IDDATATYPE::STR)
 				out << " BYTE " << idtable.table[i].value.vstr.str << ", 0";
 			if (idtable.table[i].iddatatype == IT::IDDATATYPE::INT)
-				out << " DWORD " << std::setw(8) << std::setfill('0') << idtable.table[i].value.vint << 'y';
+				out << " DWORD " << std::setw(32) << std::setfill('0') << idtable.table[i].value.vint << 'y';
 			out << '\n';
 		}
 }
@@ -142,9 +143,7 @@ void CG::Generator::Code()
 				if (idtable.table[lextable.table[i + 1].idxTI].iddatatype == IT::IDDATATYPE::INT) {
 					out << "\tpush\t\t" << idtable.table[lextable.table[i + 1].idxTI].scope
 						<< idtable.table[lextable.table[i + 1].idxTI].id;
-					out << "\n\tcall\t\tConvertToChar\n";
-					out << "\tpush\t\teax\n";
-					out << "\tcall\t\tConsoleWrite\n\n";
+					out << "\n\tcall\t\tConsoleWriteInt\n\n";
 				}
 				else {
 					out << "\tpush\t\t" << idtable.table[lextable.table[i + 1].idxTI].scope
@@ -155,9 +154,7 @@ void CG::Generator::Code()
 			else if (lextable.table[i + 1].lexema == LEX_LITERAL) {
 				if (idtable.table[lextable.table[i + 1].idxTI].iddatatype == IT::IDDATATYPE::INT) {
 					out << "\tpush\t\t" << idtable.table[lextable.table[i + 1].idxTI].literalID;
-					out << "\n\tcall\t\tConvertToChar\n";
-					out << "\tpush\t\teax\n";
-					out << "\tcall\t\tConsoleWrite\n\n";
+					out << "\n\tcall\t\tConsoleWriteInt\n\n";
 				}
 				else {
 					out << "\tpush\t\toffset " << idtable.table[lextable.table[i + 1].idxTI].literalID;

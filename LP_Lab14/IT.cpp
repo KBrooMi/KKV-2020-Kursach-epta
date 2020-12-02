@@ -71,8 +71,8 @@ int IT::LiteralRepeat(IdTable& idtable, std::string literal)
 	for (int i = 0; i < idtable.size; i++)
 		if (idtable.table[i].idtype == IT::IDTYPE::L)
 			if (idtable.table[i].iddatatype == IT::IDDATATYPE::INT && iddatatype == IT::IDDATATYPE::INT) {
-				int temp = std::stoi(literal);
-				if (temp == idtable.table[i].value.vint)
+				std::bitset<32> bits(literal);
+				if (bits == idtable.table[i].value.vint)
 					return i;
 			}
 			else if (idtable.table[i].value.vstr.str == literal)
@@ -103,8 +103,10 @@ IT::Entry::Entry(int idxfirstLE, const char* id, const char* scope, const char* 
 		this->literalID[0] = '-'; this->literalID[1] = '1'; this->literalID[2] = '\0';
 
 		if (iddatatype == IT::IDDATATYPE::INT)
-			if (is_digit(value))
-				this->value.vint = std::stoi(value);
+			if (is_digit(value)) {
+				std::bitset<32> bits(value);
+				this->value.vint = bits;
+			}
 			else
 				this->value.vint = 0;
 		else if (idtype != IT::IDTYPE::L) {
@@ -120,8 +122,10 @@ IT::Entry::Entry(int idxfirstLE, const char* id, const char* scope, const char* 
 			this->literalID[i + 1] = literalID[i];
 		}
 		this->literalID[ID_MAXSIZE - 1] = '\0';
-		if (iddatatype == IT::IDDATATYPE::INT && is_digit(value))
-			this->value.vint = std::stoi(value);
+		if (iddatatype == IT::IDDATATYPE::INT && is_digit(value)) {
+			std::bitset<32> bits(value);
+			this->value.vint = bits;
+		}
 		else {
 			for (size_t i = 0; i < value.size(); i++)
 				this->value.vstr.str[i] = value[i];
@@ -129,4 +133,8 @@ IT::Entry::Entry(int idxfirstLE, const char* id, const char* scope, const char* 
 			this->value.vstr.len = value.size();
 		}
 	}
+}
+
+IT::Entry::Value::Value()
+{
 }
