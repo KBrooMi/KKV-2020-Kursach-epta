@@ -243,11 +243,14 @@ main PROC
 	push		mainconcatenated
 	call		ConsoleWrite
 
+	push		offset mainsb
 	push		mainsa
-	push		mainsb
 	call		Copy
 	push		eax
 	pop			mainr
+
+	push		mainr
+	call		ConsoleWriteInt
 
 	push		mainsb
 	call		ConsoleWrite

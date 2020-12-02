@@ -65,9 +65,10 @@ main{
 	concatenated = Concat(sa, sb);
 	console concatenated;
 	
-	new func Copy(str origin, str destination);
+	new func Copy(str destination, str origin);
 	new dec r;
 	r = Copy(sa, sb);
+	console r;
 	console sb;
 	console 'Операции со строками';
 
