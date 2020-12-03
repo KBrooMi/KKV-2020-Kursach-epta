@@ -184,7 +184,10 @@ void CG::Generator::Code()
 					else if (lextable.table[i].lexema == LEX_COPY) {
 						out << "\tpush\t\toffset " << '_' << idtable.table[lextable.table[i + 2].idxTI].scope
 							<< idtable.table[lextable.table[i + 2].idxTI].id << "\n";
-						out << "\tpush\t\t" << '_' << idtable.table[lextable.table[i + 1].idxTI].scope
+						if (idtable.table[lextable.table[i + 1].idxTI].idtype == IT::IDTYPE::L)
+							out << "\tpush\t\toffset " << '_' << idtable.table[lextable.table[i + 1].idxTI].literalID << "\n";
+						else
+							out << "\tpush\t\t" << '_' << idtable.table[lextable.table[i + 1].idxTI].scope
 							<< idtable.table[lextable.table[i + 1].idxTI].id << "\n";
 						i += 2;
 					}
@@ -272,14 +275,14 @@ void CG::Generator::Code()
 				}
 				else if (lextable.table[q].lexema == LEX_LITERAL) {
 					if (!positionOfParm)
-						out << "\tpush\t\toffset ";
-					else
 						out << "\tpush\t\t";
+					else
+						out << "\tpush\t\toffset ";
 					out << idtable.table[lextable.table[q].idxTI].literalID << std::endl;
 					positionOfParm++;
 				}
 			}
-			out << "\tcall\t\tCopy\n";
+			out << "\tcall\t\t_Copy\n";
 			break;
 		}
 		case LEX_LEFTSQUARE: {

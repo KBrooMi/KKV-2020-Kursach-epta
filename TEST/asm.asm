@@ -23,11 +23,16 @@ _ConsoleWriteInt PROTO : DWORD
 	l8 BYTE 'Hello, ', 0
 	l9 BYTE 'World!', 0
 	l10 BYTE 'Операции со строками', 0
-	l11 BYTE 'Работа с функциями', 0
-	l12 BYTE 'Начало цикла', 0
-	l13 BYTE 'Конец цикла', 0
-	l14 DWORD 00000000000000000000000000000000y
+	l11 BYTE 'dsa', 0
+	l12 BYTE 'asd', 0
+	l13 BYTE 'Работа с функциями', 0
+	l14 BYTE 'Начало цикла', 0
+	l15 BYTE 'Конец цикла', 0
+	l16 DWORD 00000000000000000000000000000000y
 .data
+	_Sumf		DWORD 0 ;INT
+	_Sumsb		DWORD 0 ;STR
+	_Sumsa		DWORD 0 ;STR
 	_Sumsum		DWORD 0 ;INT
 	_Raznsub		DWORD 0 ;INT
 	_Multimul		DWORD 0 ;INT
@@ -42,7 +47,6 @@ _ConsoleWriteInt PROTO : DWORD
 	_mainsa		DWORD 0 ;STR
 	_mainsb		DWORD 0 ;STR
 	_mainconcatenated		DWORD 0 ;STR
-	_mainr		DWORD 0 ;INT
 	_mainx		DWORD 0 ;INT
 	_mainy		DWORD 0 ;INT
 	_mainout		DWORD 0 ;INT
@@ -50,6 +54,12 @@ _ConsoleWriteInt PROTO : DWORD
 
 .code
 _Sum PROC _b: DWORD, _a: DWORD
+	push		offset _Sumsb
+	push		_Sumsa
+	call		_Copy
+	push		eax
+	pop			_Sumf
+
 	push		_a
 	push		_b
 	;\/Сложение\/
@@ -235,8 +245,8 @@ main PROC
 	push		_mainsb
 	call		_ConsoleWrite
 
-	push		_mainsa
-	push		_mainsb
+	push		offset l11
+	push		offset l12
 	call		_Concat
 	push		eax
 	pop			_mainconcatenated
@@ -245,14 +255,8 @@ main PROC
 	call		_ConsoleWrite
 
 	push		offset _mainsb
-	push		_mainsa
+	push		offset l12
 	call		_Copy
-	push		eax
-	pop			_mainr
-
-	push		_mainr
-	call		_ConsoleWriteInt
-
 	push		_mainsb
 	call		_ConsoleWrite
 
@@ -265,7 +269,7 @@ main PROC
 	push		l3
 	pop			_mainy
 
-	push		offset l11
+	push		offset l13
 	call		_ConsoleWrite
 
 	push		_mainx
@@ -313,13 +317,13 @@ main PROC
 	push		_mainout
 	call		_ConsoleWriteInt
 
-	push		offset l11
+	push		offset l13
 	call		_ConsoleWrite
 
 	push		l4
 	pop			_mainiterator
 
-	push		offset l12
+	push		offset l14
 	call		_ConsoleWrite
 
 	.while		_mainiterator
@@ -330,10 +334,10 @@ main PROC
 	dec			_mainiterator
 	;/\Тело цикла/\
 	.endw
-	push		offset l13
+	push		offset l15
 	call		_ConsoleWrite
 
-	push		l14
+	push		l16
 	call		ExitProcess
 main ENDP
 end main
