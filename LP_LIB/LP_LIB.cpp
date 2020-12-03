@@ -2,7 +2,7 @@
 #include <bitset>
 
 extern "C" {
-	char* __stdcall Concat(char* str2, char* str1) {
+	char* __stdcall _Concat(char* str2, char* str1) {
 		if (str1 == NULL || str2 == NULL)
 			return (char*)"NULL";
 		char* out = (char*)calloc(255, sizeof(char));
@@ -16,7 +16,7 @@ extern "C" {
 		return out;
 	}
 
-	unsigned long __stdcall Copy(char* origin, char*& destination) {
+	unsigned long __stdcall _Copy(char* origin, char*& destination) {
 		if (origin == NULL)
 			return NULL;
 		destination = (char*)calloc(255, sizeof(char));
@@ -28,7 +28,7 @@ extern "C" {
 		return strlen(destination);
 	}
 
-	void __stdcall ConsoleWriteInt(unsigned long number) {
+	void __stdcall _ConsoleWriteInt(unsigned long number) {
 		if (number == 0) {
 			std::cout << "0\n";
 			return;
@@ -48,14 +48,14 @@ extern "C" {
 		while (c[i] != '1')
 			i++;
 
-		for (int j = i, q = 0; j < strlen(c); j++, q++)
+		for (size_t j = i, q = 0; j < strlen(c); j++, q++)
 			out[q] = c[j];
 
 		std::cout << out << std::endl;
 		return;
 	}
 
-	void __stdcall ConsoleWrite(const char* buffer) {
+	void __stdcall _ConsoleWrite(const char* buffer) {
 		setlocale(0, "");
 		if (buffer == NULL) {
 			std::cout << "NULL\n";

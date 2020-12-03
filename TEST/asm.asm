@@ -4,10 +4,10 @@ includelib libucrt.lib
 includelib kernel32.lib
 includelib ../LP_LIB/Debug/LP_Lib.lib
 ExitProcess PROTO : DWORD
-Concat PROTO : DWORD, :DWORD
-Copy PROTO : DWORD, : DWORD
-ConsoleWrite PROTO : DWORD
-ConsoleWriteInt PROTO : DWORD
+_Concat PROTO : DWORD, :DWORD
+_Copy PROTO : DWORD, : DWORD
+_ConsoleWrite PROTO : DWORD
+_ConsoleWriteInt PROTO : DWORD
 
 
 .stack 4096
@@ -23,81 +23,80 @@ ConsoleWriteInt PROTO : DWORD
 	l8 BYTE 'Hello, ', 0
 	l9 BYTE 'World!', 0
 	l10 BYTE 'Операции со строками', 0
-	l11 BYTE 'asd', 0
-	l12 BYTE 'Работа с функциями', 0
-	l13 BYTE 'Начало цикла', 0
-	l14 BYTE 'Конец цикла', 0
-	l15 DWORD 00000000000000000000000000000000y
+	l11 BYTE 'Работа с функциями', 0
+	l12 BYTE 'Начало цикла', 0
+	l13 BYTE 'Конец цикла', 0
+	l14 DWORD 00000000000000000000000000000000y
 .data
-	Sumsum		DWORD 0 ;INT
-	Raznsub		DWORD 0 ;INT
-	Multimul		DWORD 0 ;INT
-	Divisiondiv		DWORD 0 ;INT
-	RemOfDivremofdiv		DWORD 0 ;INT
-	maina		DWORD 0 ;INT
-	mainb		DWORD 0 ;INT
-	mainc		DWORD 0 ;INT
-	maind		DWORD 0 ;INT
-	maine		DWORD 0 ;INT
-	mainf		DWORD 0 ;INT
-	mainsa		DWORD 0 ;STR
-	mainsb		DWORD 0 ;STR
-	mainconcatenated		DWORD 0 ;STR
-	mainr		DWORD 0 ;INT
-	mainx		DWORD 0 ;INT
-	mainy		DWORD 0 ;INT
-	mainout		DWORD 0 ;INT
-	mainiterator		DWORD 0 ;INT
+	_Sumsum		DWORD 0 ;INT
+	_Raznsub		DWORD 0 ;INT
+	_Multimul		DWORD 0 ;INT
+	_Divisiondiv		DWORD 0 ;INT
+	_RemOfDivremofdiv		DWORD 0 ;INT
+	_maina		DWORD 0 ;INT
+	_mainb		DWORD 0 ;INT
+	_mainc		DWORD 0 ;INT
+	_maind		DWORD 0 ;INT
+	_maine		DWORD 0 ;INT
+	_mainf		DWORD 0 ;INT
+	_mainsa		DWORD 0 ;STR
+	_mainsb		DWORD 0 ;STR
+	_mainconcatenated		DWORD 0 ;STR
+	_mainr		DWORD 0 ;INT
+	_mainx		DWORD 0 ;INT
+	_mainy		DWORD 0 ;INT
+	_mainout		DWORD 0 ;INT
+	_mainiterator		DWORD 0 ;INT
 
 .code
-Sum PROC b: DWORD, a: DWORD
-	push		a
-	push		b
+_Sum PROC _b: DWORD, _a: DWORD
+	push		_a
+	push		_b
 	;\/Сложение\/
 	pop		eax
 	pop		ebx
 	add		eax, ebx
 	push		eax
 	;/\Сложение/\
-	pop			Sumsum
+	pop			_Sumsum
 
 	mov		eax, l0
 	ret		8
-Sum ENDP
+_Sum ENDP
 
-Razn PROC b: DWORD, a: DWORD
-	push		a
-	push		b
+_Razn PROC _b: DWORD, _a: DWORD
+	push		_a
+	push		_b
 	;\/Вычитание\/
 	pop		ebx
 	pop		eax
 	sub		eax, ebx
 	push		eax
 	;/\Вычитание/\
-	pop			Raznsub
+	pop			_Raznsub
 
-	mov		eax, Raznsub
+	mov		eax, _Raznsub
 	ret		8
-Razn ENDP
+_Razn ENDP
 
-Multi PROC b: DWORD, a: DWORD
-	push		a
-	push		b
+_Multi PROC _b: DWORD, _a: DWORD
+	push		_a
+	push		_b
 	;\/Умножение\/
 	pop		eax
 	pop		ebx
 	mul		ebx
 	push		eax
 	;/\Умножение/\
-	pop			Multimul
+	pop			_Multimul
 
-	mov		eax, Multimul
+	mov		eax, _Multimul
 	ret		8
-Multi ENDP
+_Multi ENDP
 
-Division PROC b: DWORD, a: DWORD
-	push		a
-	push		b
+_Division PROC _b: DWORD, _a: DWORD
+	push		_a
+	push		_b
 	;\/Деление\/
 	pop		ebx
 	mov		edx, 0
@@ -105,15 +104,15 @@ Division PROC b: DWORD, a: DWORD
 	div		ebx
 	push		eax
 	;/\Деление/\
-	pop			Divisiondiv
+	pop			_Divisiondiv
 
-	mov		eax, Divisiondiv
+	mov		eax, _Divisiondiv
 	ret		8
-Division ENDP
+_Division ENDP
 
-RemOfDiv PROC b: DWORD, a: DWORD
-	push		a
-	push		b
+_RemOfDiv PROC _b: DWORD, _a: DWORD
+	push		_a
+	push		_b
 	;\/Остаток от деления\/
 	pop		ebx
 	mov		edx, 0
@@ -121,11 +120,11 @@ RemOfDiv PROC b: DWORD, a: DWORD
 	div		ebx
 	push		edx
 	;/\Остаток от деления/\
-	pop			RemOfDivremofdiv
+	pop			_RemOfDivremofdiv
 
-	mov		eax, RemOfDivremofdiv
+	mov		eax, _RemOfDivremofdiv
 	ret		8
-RemOfDiv ENDP
+_RemOfDiv ENDP
 
 main PROC
 	push		l1
@@ -150,7 +149,7 @@ main PROC
 	sub		eax, ebx
 	push		eax
 	;/\Вычитание/\
-	pop			maina
+	pop			_maina
 
 	push		l2
 	push		l1
@@ -160,7 +159,7 @@ main PROC
 	sub		eax, ebx
 	push		eax
 	;/\Вычитание/\
-	pop			mainb
+	pop			_mainb
 
 	push		l2
 	push		l3
@@ -170,7 +169,7 @@ main PROC
 	mul		ebx
 	push		eax
 	;/\Умножение/\
-	pop			mainc
+	pop			_mainc
 
 	push		l4
 	push		l2
@@ -181,7 +180,7 @@ main PROC
 	div		ebx
 	push		eax
 	;/\Деление/\
-	pop			maind
+	pop			_maind
 
 	push		l4
 	push		l5
@@ -192,153 +191,149 @@ main PROC
 	div		ebx
 	push		edx
 	;/\Остаток от деления/\
-	pop			maine
+	pop			_maine
 
 	push		l6
-	pop			mainf
+	pop			_mainf
 
 	push		offset l7
-	call		ConsoleWrite
+	call		_ConsoleWrite
 
-	push		maina
-	call		ConsoleWriteInt
+	push		_maina
+	call		_ConsoleWriteInt
 
-	push		mainb
-	call		ConsoleWriteInt
+	push		_mainb
+	call		_ConsoleWriteInt
 
-	push		mainc
-	call		ConsoleWriteInt
+	push		_mainc
+	call		_ConsoleWriteInt
 
-	push		maind
-	call		ConsoleWriteInt
+	push		_maind
+	call		_ConsoleWriteInt
 
-	push		maine
-	call		ConsoleWriteInt
+	push		_maine
+	call		_ConsoleWriteInt
 
-	push		mainf
-	call		ConsoleWriteInt
+	push		_mainf
+	call		_ConsoleWriteInt
 
 	push		offset l7
-	call		ConsoleWrite
+	call		_ConsoleWrite
 
 	push		offset l8
-	pop			mainsa
+	pop			_mainsa
 
 	push		offset l9
-	pop			mainsb
+	pop			_mainsb
 
 	push		offset l10
-	call		ConsoleWrite
+	call		_ConsoleWrite
 
-	push		mainsa
-	call		ConsoleWrite
+	push		_mainsa
+	call		_ConsoleWrite
 
-	push		mainsb
-	call		ConsoleWrite
+	push		_mainsb
+	call		_ConsoleWrite
 
-	push		offset l11
-	push		offset l11
-	;\/Сложение\/
-	pop		eax
-	pop		ebx
-	add		eax, ebx
+	push		_mainsa
+	push		_mainsb
+	call		_Concat
 	push		eax
-	;/\Сложение/\
-	pop			mainconcatenated
+	pop			_mainconcatenated
 
-	push		mainconcatenated
-	call		ConsoleWrite
+	push		_mainconcatenated
+	call		_ConsoleWrite
 
-	push		offset mainsb
-	push		mainsa
-	call		Copy
+	push		offset _mainsb
+	push		_mainsa
+	call		_Copy
 	push		eax
-	pop			mainr
+	pop			_mainr
 
-	push		mainr
-	call		ConsoleWriteInt
+	push		_mainr
+	call		_ConsoleWriteInt
 
-	push		mainsb
-	call		ConsoleWrite
+	push		_mainsb
+	call		_ConsoleWrite
 
 	push		offset l10
-	call		ConsoleWrite
+	call		_ConsoleWrite
 
 	push		l4
-	pop			mainx
+	pop			_mainx
 
 	push		l3
-	pop			mainy
+	pop			_mainy
 
-	push		offset l12
-	call		ConsoleWrite
+	push		offset l11
+	call		_ConsoleWrite
 
-	push		mainx
-	push		mainy
-	call		Sum
+	push		_mainx
+	push		_mainy
+	call		_Sum
 	push		eax
-	pop			mainout
+	pop			_mainout
 
-	push		mainout
-	call		ConsoleWriteInt
+	push		_mainout
+	call		_ConsoleWriteInt
 
-	push		mainx
-	push		mainy
-	call		Razn
+	push		_mainx
+	push		_mainy
+	call		_Razn
 	push		eax
-	pop			mainout
+	pop			_mainout
 
-	push		mainout
-	call		ConsoleWriteInt
+	push		_mainout
+	call		_ConsoleWriteInt
 
-	push		mainx
-	push		mainy
-	call		Multi
+	push		_mainx
+	push		_mainy
+	call		_Multi
 	push		eax
-	pop			mainout
+	pop			_mainout
 
-	push		mainout
-	call		ConsoleWriteInt
+	push		_mainout
+	call		_ConsoleWriteInt
 
-	push		mainx
-	push		mainy
-	call		Division
+	push		_mainx
+	push		_mainy
+	call		_Division
 	push		eax
-	pop			mainout
+	pop			_mainout
 
-	push		mainout
-	call		ConsoleWriteInt
+	push		_mainout
+	call		_ConsoleWriteInt
 
-	push		mainx
-	push		mainy
-	call		RemOfDiv
+	push		_mainx
+	push		_mainy
+	call		_RemOfDiv
 	push		eax
-	pop			mainout
+	pop			_mainout
 
-	push		mainout
-	call		ConsoleWriteInt
+	push		_mainout
+	call		_ConsoleWriteInt
 
-	push		offset l12
-	call		ConsoleWrite
+	push		offset l11
+	call		_ConsoleWrite
 
 	push		l4
-	pop			mainiterator
+	pop			_mainiterator
 
-	push		offset l13
-	call		ConsoleWrite
+	push		offset l12
+	call		_ConsoleWrite
 
-	.while		mainiterator
+	.while		_mainiterator
 	;\/Тело цикла\/
-	push		mainiterator
-	call		ConsoleWriteInt
+	push		_mainiterator
+	call		_ConsoleWriteInt
 
-	dec			mainiterator
+	dec			_mainiterator
 	;/\Тело цикла/\
 	.endw
-	push		offset l14
-	call		ConsoleWrite
+	push		offset l13
+	call		_ConsoleWrite
 
-	push		l15
+	push		l14
 	call		ExitProcess
 main ENDP
 end main

@@ -26,10 +26,10 @@ void CG::Generator::Head()
 	out << "includelib kernel32.lib\n";
 	out << "includelib ../LP_LIB/Debug/LP_Lib.lib\n";
 	out << "ExitProcess PROTO : DWORD\n";
-	out << "Concat PROTO : DWORD, :DWORD\n";
-	out << "Copy PROTO : DWORD, : DWORD\n";
-	out << "ConsoleWrite PROTO : DWORD\n";
-	out << "ConsoleWriteInt PROTO : DWORD\n\n";
+	out << "_Concat PROTO : DWORD, :DWORD\n";
+	out << "_Copy PROTO : DWORD, : DWORD\n";
+	out << "_ConsoleWrite PROTO : DWORD\n";
+	out << "_ConsoleWriteInt PROTO : DWORD\n\n";
 	out << "\n.stack 4096\n";
 }
 
@@ -54,7 +54,7 @@ void CG::Generator::Data()
 	for (int i = 0; i < idtable.size; i++)
 		if (idtable.table[i].idtype == IT::IDTYPE::V) {
 			out << '\t';
-			out << idtable.table[i].scope << idtable.table[i].id;
+			out << '_' << idtable.table[i].scope << idtable.table[i].id;
 			out << "\t\tDWORD 0 ";
 			if (idtable.table[i].iddatatype == IT::IDDATATYPE::STR)
 				out << ";STR\n";
@@ -78,7 +78,7 @@ void CG::Generator::Code()
 			if (func || main)
 				break;
 			indOfFunc = i + 1;
-			out << idtable.table[lextable.table[indOfFunc].idxTI].id << " PROC ";
+			out << '_' << idtable.table[lextable.table[indOfFunc].idxTI].id << " PROC ";
 			func = true;
 			int backup = i;
 			while (lextable.table[i].lexema != LEX_RIGHTHESIS)
@@ -88,7 +88,7 @@ void CG::Generator::Code()
 				if (lextable.table[i].lexema == LEX_ID)
 				{
 					stackRet += 4;
-					out << idtable.table[lextable.table[i].idxTI].id << ": DWORD";
+					out << '_' << idtable.table[lextable.table[i].idxTI].id << ": DWORD";
 					if (lextable.table[i - 2].lexema != LEX_LEFTHESIS)
 						out << ", ";
 				}
@@ -106,7 +106,7 @@ void CG::Generator::Code()
 		case LEX_BRACELET: {
 			if (func)
 			{
-				out << idtable.table[lextable.table[indOfFunc].idxTI].id << " ENDP\n\n";
+				out << '_' << idtable.table[lextable.table[indOfFunc].idxTI].id << " ENDP\n\n";
 				func = false;
 			}
 			else
@@ -118,7 +118,7 @@ void CG::Generator::Code()
 			if (main) {
 				out << "\tpush\t\t";
 				if (lextable.table[i + 1].lexema == LEX_ID) {
-					out << idtable.table[lextable.table[i + 1].idxTI].scope
+					out << '_' << idtable.table[lextable.table[i + 1].idxTI].scope
 						<< idtable.table[lextable.table[i + 1].idxTI].id;
 				}
 				else
@@ -129,7 +129,7 @@ void CG::Generator::Code()
 			{
 				if (idtable.table[lextable.table[i + 1].idxTI].iddatatype == IT::IDDATATYPE::STR) {
 					if (idtable.table[lextable.table[i + 1].idxTI].idtype != IT::IDTYPE::L)
-						out << "\tmov\t\teax, " << idtable.table[lextable.table[i + 1].idxTI].scope
+						out << "\tmov\t\teax, " << '_' << idtable.table[lextable.table[i + 1].idxTI].scope
 						<< idtable.table[lextable.table[i + 1].idxTI].id << "\n\tret\t\t" << stackRet << std::endl;
 					else
 						out << "\tmov\t\teax, offset " << idtable.table[lextable.table[i + 1].idxTI].literalID << "\n\tret\t\t" << stackRet << std::endl;
@@ -139,7 +139,7 @@ void CG::Generator::Code()
 						out << "\tmov\t\teax, " << idtable.table[lextable.table[i + 1].idxTI].literalID
 						<< "\n\tret\t\t" << stackRet << std::endl;
 					else
-						out << "\tmov\t\teax, " << idtable.table[lextable.table[i + 1].idxTI].scope
+						out << "\tmov\t\teax, " << '_' << idtable.table[lextable.table[i + 1].idxTI].scope
 						<< idtable.table[lextable.table[i + 1].idxTI].id << "\n\tret\t\t" << stackRet << std::endl;
 				}
 				stackRet = 0;
@@ -149,24 +149,24 @@ void CG::Generator::Code()
 		case LEX_PRINT: {
 			if (lextable.table[i + 1].lexema == LEX_ID) {
 				if (idtable.table[lextable.table[i + 1].idxTI].iddatatype == IT::IDDATATYPE::INT) {
-					out << "\tpush\t\t" << idtable.table[lextable.table[i + 1].idxTI].scope
+					out << "\tpush\t\t" << '_' << idtable.table[lextable.table[i + 1].idxTI].scope
 						<< idtable.table[lextable.table[i + 1].idxTI].id;
-					out << "\n\tcall\t\tConsoleWriteInt\n\n";
+					out << "\n\tcall\t\t_ConsoleWriteInt\n\n";
 				}
 				else {
-					out << "\tpush\t\t" << idtable.table[lextable.table[i + 1].idxTI].scope
+					out << "\tpush\t\t" << '_' << idtable.table[lextable.table[i + 1].idxTI].scope
 						<< idtable.table[lextable.table[i + 1].idxTI].id;
-					out << "\n\tcall\t\tConsoleWrite\n\n";
+					out << "\n\tcall\t\t_ConsoleWrite\n\n";
 				}
 			}
 			else if (lextable.table[i + 1].lexema == LEX_LITERAL) {
 				if (idtable.table[lextable.table[i + 1].idxTI].iddatatype == IT::IDDATATYPE::INT) {
 					out << "\tpush\t\t" << idtable.table[lextable.table[i + 1].idxTI].literalID;
-					out << "\n\tcall\t\tConsoleWriteInt\n\n";
+					out << "\n\tcall\t\t_ConsoleWriteInt\n\n";
 				}
 				else {
 					out << "\tpush\t\toffset " << idtable.table[lextable.table[i + 1].idxTI].literalID;
-					out << "\n\tcall\t\tConsoleWrite\n\n";
+					out << "\n\tcall\t\t_ConsoleWrite\n\n";
 				}
 			}
 			break;
@@ -177,14 +177,14 @@ void CG::Generator::Code()
 				if (lextable.table[i].lexema == LEX_ID || lextable.table[i].lexema == LEX_COPY) {
 					if (idtable.table[lextable.table[i].idxTI].idtype != IT::IDTYPE::F)
 						if (!func)
-							out << "\tpush\t\t" << idtable.table[lextable.table[i].idxTI].scope
+							out << "\tpush\t\t" << '_' << idtable.table[lextable.table[i].idxTI].scope
 							<< idtable.table[lextable.table[i].idxTI].id << "\n";
 						else
-							out << "\tpush\t\t" << idtable.table[lextable.table[i].idxTI].id << "\n";
+							out << "\tpush\t\t" << '_' << idtable.table[lextable.table[i].idxTI].id << "\n";
 					else if (lextable.table[i].lexema == LEX_COPY) {
-						out << "\tpush\t\toffset " << idtable.table[lextable.table[i + 2].idxTI].scope
+						out << "\tpush\t\toffset " << '_' << idtable.table[lextable.table[i + 2].idxTI].scope
 							<< idtable.table[lextable.table[i + 2].idxTI].id << "\n";
-						out << "\tpush\t\t" << idtable.table[lextable.table[i + 1].idxTI].scope
+						out << "\tpush\t\t" << '_' << idtable.table[lextable.table[i + 1].idxTI].scope
 							<< idtable.table[lextable.table[i + 1].idxTI].id << "\n";
 						i += 2;
 					}
@@ -199,7 +199,7 @@ void CG::Generator::Code()
 				if (lextable.table[i].lexema == LEX_HEADOFFUNC)
 				{
 					int delta = lextable.table[i + 1].lexema - '0' + 1;
-					out << "\tcall\t\t" << idtable.table[lextable.table[i - delta].idxTI].id << "\n";
+					out << "\tcall\t\t" << '_' << idtable.table[lextable.table[i - delta].idxTI].id << "\n";
 					out << "\tpush\t\teax\n";
 				}
 				if (lextable.table[i].lexema == LEX_PLUS)
@@ -249,7 +249,7 @@ void CG::Generator::Code()
 				}
 				i++;
 			}
-			out << "\tpop\t\t\t" << idtable.table[lextable.table[indOflex].idxTI].scope
+			out << "\tpop\t\t\t" << '_' << idtable.table[lextable.table[indOflex].idxTI].scope
 				<< idtable.table[lextable.table[indOflex].idxTI].id << "\n\n";
 			break;
 		}
@@ -266,7 +266,7 @@ void CG::Generator::Code()
 						out << "\tpush\t\toffset ";
 					else
 						out << "\tpush\t\t";
-					out << idtable.table[lextable.table[q].idxTI].scope
+					out << '_' << idtable.table[lextable.table[q].idxTI].scope
 						<< idtable.table[lextable.table[q].idxTI].id << std::endl;
 					positionOfParm++;
 				}
@@ -288,7 +288,7 @@ void CG::Generator::Code()
 			while (lextable.table[i].lexema != LEX_WHILE) {
 				i--;
 				if (lextable.table[i].lexema == LEX_ID) {
-					out << idtable.table[lextable.table[i].idxTI].scope
+					out << '_' << idtable.table[lextable.table[i].idxTI].scope
 						<< idtable.table[lextable.table[i].idxTI].id << "\n\t;\\/Тело цикла\\/\n";
 					whileIterator = idtable.table[lextable.table[i].idxTI];
 				}
@@ -297,7 +297,7 @@ void CG::Generator::Code()
 			break;
 		}
 		case LEX_RIGHTSQUARE: {
-			out << "\tdec\t\t\t" << whileIterator.scope << whileIterator.id << std::endl;
+			out << "\tdec\t\t\t" << '_' << whileIterator.scope << whileIterator.id << std::endl;
 			out << "\t;/\\Тело цикла/\\\n";
 			out << "\t.endw\n";
 			break;
