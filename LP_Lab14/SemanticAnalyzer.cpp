@@ -149,6 +149,9 @@ void SA::SemanticAnalyzer::Types()
 				case LEX_LITERAL: {
 					if (idtable.table[lextable.table[i].idxTI].iddatatype != datatype)
 						throw ERROR_THROW_SEM(706, lextable.table[i].sn);
+					else if (idtable.table[lextable.table[i].idxTI].iddatatype == datatype && datatype == IT::IDDATATYPE::STR)
+						if (idtable.table[lextable.table[i].idxTI].value.vstr.len == 0)
+							throw ERROR_THROW_SEM(710, lextable.table[i].sn);
 					break;
 				}
 				case LEX_CONCAT: {

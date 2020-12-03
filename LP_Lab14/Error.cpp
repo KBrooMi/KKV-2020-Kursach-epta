@@ -70,7 +70,7 @@ Error::ERROR errors[ERROR_MAX_ENTRY] = {
 	ERROR_ENTRY(707, "[SemA]: Несоответствие типа функции и возвращаемого значения"),
 	ERROR_ENTRY(708, "[SemA]: Main Должен возвращать числовое значение"),
 	ERROR_ENTRY(709, "[SemA]: Функция Copy принимает литерал в качестве строки-назначения"),
-	ERROR_ENTRY_NODEF(710),
+	ERROR_ENTRY(710, "[SemA]: Присвоение пустой строки"),
 	ERROR_ENTRY_NODEF(711), ERROR_ENTRY_NODEF(712), ERROR_ENTRY_NODEF(713),ERROR_ENTRY_NODEF(714),ERROR_ENTRY_NODEF(715),
 	ERROR_ENTRY_NODEF(716),ERROR_ENTRY_NODEF(717),ERROR_ENTRY_NODEF(718),ERROR_ENTRY_NODEF(719),
 	ERROR_ENTRY_NODEF10(720), ERROR_ENTRY_NODEF10(730), ERROR_ENTRY_NODEF10(740),

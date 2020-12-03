@@ -5,7 +5,7 @@ dec func Sum(dec a, dec b){
 }
 
 dec func Razn(dec a, dec b){
-	new dec sub;
+	new dec sub;	
 	sub = a - b;
 	ret sub;
 }

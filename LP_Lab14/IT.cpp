@@ -130,7 +130,7 @@ IT::Entry::Entry(int idxfirstLE, const char* id, const char* scope, const char* 
 			for (size_t i = 0; i < value.size(); i++)
 				this->value.vstr.str[i] = value[i];
 			this->value.vstr.str[value.size()] = '\0';
-			this->value.vstr.len = value.size();
+			this->value.vstr.len = value.size() - 2;
 		}
 	}
 }
