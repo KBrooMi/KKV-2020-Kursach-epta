@@ -216,7 +216,7 @@ NODE())
 
 #define FST_STRING_LITERAL FST(3, LEX_LITERAL,\
 		NODE(1, RELATION('\'', 1)),\
-		NODE(135,\
+		NODE(141,\
 		RELATION('A', 1),\
 		RELATION('B', 1),\
 		RELATION('C', 1),\
@@ -351,6 +351,12 @@ NODE())
 		RELATION('(', 1),\
 		RELATION(')', 1),\
 		RELATION(' ', 1),\
+		RELATION('+', 1),\
+		RELATION('=', 1),\
+		RELATION('-', 1),\
+		RELATION('*', 1),\
+		RELATION('/', 1),\
+		RELATION('%', 1),\
 		RELATION('\'', 2)\
 ),\
 NODE())

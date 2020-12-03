@@ -55,7 +55,11 @@ void CG::Generator::Data()
 		if (idtable.table[i].idtype == IT::IDTYPE::V) {
 			out << '\t';
 			out << idtable.table[i].scope << idtable.table[i].id;
-			out << "\t\t\tDWORD 0\n";
+			out << "\t\tDWORD 0 ";
+			if (idtable.table[i].iddatatype == IT::IDDATATYPE::STR)
+				out << ";STR\n";
+			else
+				out << ";INT\n";
 		}
 }
 
@@ -126,13 +130,18 @@ void CG::Generator::Code()
 				if (idtable.table[lextable.table[i + 1].idxTI].iddatatype == IT::IDDATATYPE::STR) {
 					if (idtable.table[lextable.table[i + 1].idxTI].idtype != IT::IDTYPE::L)
 						out << "\tmov\t\teax, " << idtable.table[lextable.table[i + 1].idxTI].scope
-						<< idtable.table[lextable.table[i + 1].idxTI].id << "\n\tret\n";
+						<< idtable.table[lextable.table[i + 1].idxTI].id << "\n\tret\t\t" << stackRet << std::endl;
 					else
 						out << "\tmov\t\teax, offset " << idtable.table[lextable.table[i + 1].idxTI].literalID << "\n\tret\t\t" << stackRet << std::endl;
 				}
-				else
-					out << "\tmov\t\teax, " << idtable.table[lextable.table[i + 1].idxTI].scope
-					<< idtable.table[lextable.table[i + 1].idxTI].id << "\n\tret\t\t" << stackRet << std::endl;
+				else {
+					if (idtable.table[lextable.table[i + 1].idxTI].idtype == IT::IDTYPE::L)
+						out << "\tmov\t\teax, " << idtable.table[lextable.table[i + 1].idxTI].literalID
+						<< "\n\tret\t\t" << stackRet << std::endl;
+					else
+						out << "\tmov\t\teax, " << idtable.table[lextable.table[i + 1].idxTI].scope
+						<< idtable.table[lextable.table[i + 1].idxTI].id << "\n\tret\t\t" << stackRet << std::endl;
+				}
 				stackRet = 0;
 			}
 			break;

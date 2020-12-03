@@ -15,11 +15,11 @@ void SA::SemanticAnalyzer::Start(const Log::LOG& log)
 	Types();
 	FuncReturn();
 	CorrectAmountOfParms();
+	CheckStringLiteralOperations();
 	*log.stream << "-------------------------------------------------------------------------------------\n";
 	*log.stream << "—емантический анализ выполнен без ошибок\n";
 }
 
-//todo +-+-+-+-+-+-+- OK +-+-+-+-+-+-+-
 void SA::SemanticAnalyzer::CheckReturn()
 {
 	bool main = false;
@@ -39,7 +39,6 @@ void SA::SemanticAnalyzer::CheckReturn()
 			main = true;
 }
 
-//todo +-+-+-+-+-+-+- OK +-+-+-+-+-+-+-
 void SA::SemanticAnalyzer::ParmsOfFunc()
 {
 	char buf[ID_MAXSIZE];
@@ -82,7 +81,6 @@ void SA::SemanticAnalyzer::ParmsOfFunc()
 		}
 }
 
-//todo +-+-+-+-+-+-+- OK +-+-+-+-+-+-+-
 void SA::SemanticAnalyzer::ParmsOfStandFunc()
 {
 	for (int i = 0; i < lextable.size; i++)
@@ -127,7 +125,6 @@ void SA::SemanticAnalyzer::ParmsOfStandFunc()
 		}
 }
 
-//todo +-+-+-+-+-+-+- OK +-+-+-+-+-+-+-
 void SA::SemanticAnalyzer::Types()
 {
 	IT::IDDATATYPE datatype;
@@ -174,7 +171,6 @@ void SA::SemanticAnalyzer::Types()
 	}
 }
 
-//todo +-+-+-+-+-+-+- OK +-+-+-+-+-+-+-
 void SA::SemanticAnalyzer::FuncReturn()
 {
 	for (int i = 0; i < lextable.size; i++)
@@ -188,7 +184,6 @@ void SA::SemanticAnalyzer::FuncReturn()
 		}
 }
 
-//todo +-+-+-+-+-+-+- OK +-+-+-+-+-+-+-
 void SA::SemanticAnalyzer::CorrectAmountOfParms()
 {
 	std::string buf;
@@ -219,4 +214,15 @@ void SA::SemanticAnalyzer::CorrectAmountOfParms()
 			if (funcparms != parms)
 				throw ERROR_THROW_SEM(701, lextable.table[i].sn);
 		}
+}
+
+void SA::SemanticAnalyzer::CheckStringLiteralOperations()
+{
+	std::vector<char> operators = { LEX_MINUS, LEX_PLUS, LEX_DIRSLASH, LEX_STAR, LEX_PERCENT };
+	for (int i = 0; i < lextable.size; i++)
+		if (lextable.table[i].lexema == LEX_EQUAL)
+			if ((lextable.table[i + 1].lexema == LEX_LITERAL || lextable.table[i + 1].lexema == LEX_ID)
+				&& idtable.table[lextable.table[i + 1].idxTI].iddatatype == IT::IDDATATYPE::STR)
+				if (std::find(operators.begin(), operators.end(), lextable.table[i + 2].lexema) != operators.end())
+					throw ERROR_THROW_SEM(712, lextable.table[i].sn);
 }

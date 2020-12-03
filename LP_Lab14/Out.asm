@@ -12,40 +12,41 @@ ConsoleWriteInt PROTO : DWORD
 
 .stack 4096
 .const
-	l0 DWORD 00000000000000000000000000000001y
-	l1 DWORD 00000000000000000000000000000010y
-	l2 DWORD 00000000000000000000000000000101y
-	l3 DWORD 00000000000000000000000000001010y
-	l4 DWORD 00000000000000000000000000000011y
-	l5 DWORD 11111111111111111111111111111111y
-	l6 BYTE 'Арифметические операции', 0
-	l7 BYTE 'Hello, ', 0
-	l8 BYTE 'World!', 0
-	l9 BYTE 'Операции со строками', 0
-	l10 BYTE 'Работа с функциями', 0
-	l11 BYTE 'Начало цикла', 0
-	l12 BYTE 'Конец цикла', 0
-	l13 DWORD 00000000000000000000000000000000y
+	l0 DWORD 00000000000000000000000111111111y
+	l1 DWORD 00000000000000000000000000000001y
+	l2 DWORD 00000000000000000000000000000010y
+	l3 DWORD 00000000000000000000000000000101y
+	l4 DWORD 00000000000000000000000000001010y
+	l5 DWORD 00000000000000000000000000000011y
+	l6 DWORD 11111111111111111111111111111111y
+	l7 BYTE 'Арифметические операции', 0
+	l8 BYTE 'Hello, ', 0
+	l9 BYTE 'World!', 0
+	l10 BYTE 'Операции со строками', 0
+	l11 BYTE 'Работа с функциями', 0
+	l12 BYTE 'Начало цикла', 0
+	l13 BYTE 'Конец цикла', 0
+	l14 DWORD 00000000000000000000000000000000y
 .data
-	Sumsum			DWORD 0
-	Raznsub			DWORD 0
-	Multimul			DWORD 0
-	Divisiondiv			DWORD 0
-	RemOfDivremofdiv			DWORD 0
-	maina			DWORD 0
-	mainb			DWORD 0
-	mainc			DWORD 0
-	maind			DWORD 0
-	maine			DWORD 0
-	mainf			DWORD 0
-	mainsa			DWORD 0
-	mainsb			DWORD 0
-	mainconcatenated			DWORD 0
-	mainr			DWORD 0
-	mainx			DWORD 0
-	mainy			DWORD 0
-	mainout			DWORD 0
-	mainiterator			DWORD 0
+	Sumsum		DWORD 0 ;INT
+	Raznsub		DWORD 0 ;INT
+	Multimul		DWORD 0 ;INT
+	Divisiondiv		DWORD 0 ;INT
+	RemOfDivremofdiv		DWORD 0 ;INT
+	maina		DWORD 0 ;INT
+	mainb		DWORD 0 ;INT
+	mainc		DWORD 0 ;INT
+	maind		DWORD 0 ;INT
+	maine		DWORD 0 ;INT
+	mainf		DWORD 0 ;INT
+	mainsa		DWORD 0 ;STR
+	mainsb		DWORD 0 ;STR
+	mainconcatenated		DWORD 0 ;STR
+	mainr		DWORD 0 ;INT
+	mainx		DWORD 0 ;INT
+	mainy		DWORD 0 ;INT
+	mainout		DWORD 0 ;INT
+	mainiterator		DWORD 0 ;INT
 
 .code
 Sum PROC b: DWORD, a: DWORD
@@ -59,7 +60,7 @@ Sum PROC b: DWORD, a: DWORD
 	;/\Сложение/\
 	pop			Sumsum
 
-	mov		eax, Sumsum
+	mov		eax, l0
 	ret		8
 Sum ENDP
 
@@ -126,16 +127,16 @@ RemOfDiv PROC b: DWORD, a: DWORD
 RemOfDiv ENDP
 
 main PROC
-	push		l0
 	push		l1
+	push		l2
 	;\/Сложение\/
 	pop		eax
 	pop		ebx
 	add		eax, ebx
 	push		eax
 	;/\Сложение/\
+	push		l2
 	push		l1
-	push		l0
 	;\/Сложение\/
 	pop		eax
 	pop		ebx
@@ -150,8 +151,8 @@ main PROC
 	;/\Вычитание/\
 	pop			maina
 
+	push		l2
 	push		l1
-	push		l0
 	;\/Вычитание\/
 	pop		ebx
 	pop		eax
@@ -160,8 +161,8 @@ main PROC
 	;/\Вычитание/\
 	pop			mainb
 
-	push		l1
 	push		l2
+	push		l3
 	;\/Умножение\/
 	pop		eax
 	pop		ebx
@@ -170,8 +171,8 @@ main PROC
 	;/\Умножение/\
 	pop			mainc
 
-	push		l3
-	push		l1
+	push		l4
+	push		l2
 	;\/Деление\/
 	pop		ebx
 	mov		edx, 0
@@ -181,8 +182,8 @@ main PROC
 	;/\Деление/\
 	pop			maind
 
-	push		l3
 	push		l4
+	push		l5
 	;\/Остаток от деления\/
 	pop		ebx
 	mov		edx, 0
@@ -192,10 +193,10 @@ main PROC
 	;/\Остаток от деления/\
 	pop			maine
 
-	push		l5
+	push		l6
 	pop			mainf
 
-	push		offset l6
+	push		offset l7
 	call		ConsoleWrite
 
 	push		maina
@@ -216,16 +217,16 @@ main PROC
 	push		mainf
 	call		ConsoleWriteInt
 
-	push		offset l6
+	push		offset l7
 	call		ConsoleWrite
 
-	push		offset l7
+	push		offset l8
 	pop			mainsa
 
-	push		offset l8
+	push		offset l9
 	pop			mainsb
 
-	push		offset l9
+	push		offset l10
 	call		ConsoleWrite
 
 	push		mainsa
@@ -255,16 +256,16 @@ main PROC
 	push		mainsb
 	call		ConsoleWrite
 
-	push		offset l9
+	push		offset l10
 	call		ConsoleWrite
 
-	push		l3
+	push		l4
 	pop			mainx
 
-	push		l2
+	push		l3
 	pop			mainy
 
-	push		offset l10
+	push		offset l11
 	call		ConsoleWrite
 
 	push		mainx
@@ -312,13 +313,13 @@ main PROC
 	push		mainout
 	call		ConsoleWriteInt
 
-	push		offset l10
+	push		offset l11
 	call		ConsoleWrite
 
-	push		l3
+	push		l4
 	pop			mainiterator
 
-	push		offset l11
+	push		offset l12
 	call		ConsoleWrite
 
 	.while		mainiterator
@@ -329,10 +330,10 @@ main PROC
 	dec			mainiterator
 	;/\Тело цикла/\
 	.endw
-	push		offset l12
+	push		offset l13
 	call		ConsoleWrite
 
-	push		l13
+	push		l14
 	call		ExitProcess
 main ENDP
 end main
