@@ -71,6 +71,13 @@ In::IN In::getin(wchar_t infile[]) {
 			continue;
 		}
 
+		else if (readChar == '#') {
+			while (readChar != IN_CODE_ENDL) {
+				readChar = inputFile.get();
+				input.ignor++;
+			}
+		}
+
 		else if (input.code[readChar] == IN::S) {
 			writeNewLexem(input.lexems, temp_lexem, input.lines);
 			if (input.code[input.text[input.size - 1]] != IN::S && input.code[input.text[input.size - 1]] != IN::O &&

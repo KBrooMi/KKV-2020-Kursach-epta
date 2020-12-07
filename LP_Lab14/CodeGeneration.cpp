@@ -36,6 +36,7 @@ void CG::Generator::Head()
 void CG::Generator::Constants()
 {
 	out << ".const\n";
+	out << "\t_DIVISION_BY_ZERO_ERROR BYTE 'Ошибка выполнения: деление на ноль', 0\n";
 	for (int i = 0; i < idtable.size; i++)
 		if (idtable.table[i].idtype == IT::IDTYPE::L)
 		{
@@ -185,7 +186,7 @@ void CG::Generator::Code()
 						out << "\tpush\t\toffset " << '_' << idtable.table[lextable.table[i + 2].idxTI].scope
 							<< idtable.table[lextable.table[i + 2].idxTI].id << "\n";
 						if (idtable.table[lextable.table[i + 1].idxTI].idtype == IT::IDTYPE::L)
-							out << "\tpush\t\toffset " << '_' << idtable.table[lextable.table[i + 1].idxTI].literalID << "\n";
+							out << "\tpush\t\toffset " << idtable.table[lextable.table[i + 1].idxTI].literalID << "\n";
 						else
 							out << "\tpush\t\t" << '_' << idtable.table[lextable.table[i + 1].idxTI].scope
 							<< idtable.table[lextable.table[i + 1].idxTI].id << "\n";
@@ -237,6 +238,11 @@ void CG::Generator::Code()
 					out << "\tpop\t\tebx\n";
 					out << "\tmov\t\tedx, 0\n";
 					out << "\tpop\t\teax\n";
+					out << "\t.if ebx == 0\n";
+					out << "\tpush offset _DIVISION_BY_ZERO_ERROR\n";
+					out << "\tcall _ConsoleWrite\n";
+					out << "\tinvoke\t\tExitProcess, -1\n";
+					out << "\t.endif\n";
 					out << "\tdiv\t\tebx\n";
 					out << "\tpush\t\teax\n";
 					out << "\t;/\\Деление/\\\n";
@@ -246,6 +252,11 @@ void CG::Generator::Code()
 					out << "\tpop\t\tebx\n";
 					out << "\tmov\t\tedx, 0\n";
 					out << "\tpop\t\teax\n";
+					out << "\t.if ebx == 0\n";
+					out << "\tpush offset _DIVISION_BY_ZERO_ERROR\n";
+					out << "\tcall _ConsoleWrite\n";
+					out << "\tinvoke\t\tExitProcess, -1\n";
+					out << "\t.endif\n";
 					out << "\tdiv\t\tebx\n";
 					out << "\tpush\t\tedx\n";
 					out << "\t;/\\Остаток от деления/\\\n";

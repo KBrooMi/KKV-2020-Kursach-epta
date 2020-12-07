@@ -77,11 +77,11 @@ namespace GRB
 				Rule::Chain(1, TS('i')),
 				Rule::Chain(1, TS('l')),
 
-				Rule::Chain(3, TS('('), NS('E'), TS(')')),
-				Rule::Chain(4, TS('('), NS('E'), TS(')'), NS('M')),
-
 				Rule::Chain(2, TS('i'), NS('M')),
 				Rule::Chain(2, TS('l'), NS('M')),
+
+				Rule::Chain(3, TS('('), NS('E'), TS(')')),
+				Rule::Chain(4, TS('('), NS('E'), TS(')'), NS('M')),
 
 				Rule::Chain(4, TS('i'), TS('('), NS('W'), TS(')')),
 				Rule::Chain(5, TS('i'), TS('('), NS('W'), TS(')'), NS('M')),
