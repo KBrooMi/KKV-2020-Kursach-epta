@@ -222,7 +222,7 @@ void FST::Recognize(std::vector<std::pair<int, std::string>> lexems, std::ostrea
 			}
 			else if (j == size - 1 && !libFunc) {
 				*logfile << lexems[i].second << " - ";
-				throw ERROR_THROW(115);
+				throw ERROR_THROW(128);
 			}
 		}
 	}

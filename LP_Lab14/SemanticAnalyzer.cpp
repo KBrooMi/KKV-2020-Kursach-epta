@@ -105,7 +105,7 @@ void SA::SemanticAnalyzer::ParmsOfStandFunc()
 				}
 			}
 			if (parmsCount != 2)
-				throw ERROR_THROW_SEM(703, lextable.table[i].sn);
+				throw ERROR_THROW_SEM(703, lextable.table[i - 1].sn);
 			break;
 		}
 		case LEX_CONCAT: {
@@ -119,7 +119,7 @@ void SA::SemanticAnalyzer::ParmsOfStandFunc()
 				}
 			}
 			if (parmsCount != 2)
-				throw ERROR_THROW_SEM(703, lextable.table[i].sn);
+				throw ERROR_THROW_SEM(703, lextable.table[i - 1].sn);
 			break;
 		}
 		}
