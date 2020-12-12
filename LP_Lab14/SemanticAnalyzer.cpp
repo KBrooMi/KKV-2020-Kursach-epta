@@ -10,12 +10,12 @@ SA::SemanticAnalyzer::SemanticAnalyzer(LT::LexTable lextable, IT::IdTable idtabl
 void SA::SemanticAnalyzer::Start(const Log::LOG& log)
 {
 	CheckReturn();
-	ParmsOfFunc();
 	ParmsOfStandFunc();
 	Types();
 	FuncReturn();
 	CorrectAmountOfParms();
 	CheckStringLiteralOperations();
+	CheckWhile();
 	*log.stream << "-------------------------------------------------------------------------------------\n";
 	*log.stream << "—емантический анализ выполнен без ошибок\n";
 }
@@ -37,48 +37,6 @@ void SA::SemanticAnalyzer::CheckReturn()
 		}
 		else if (lextable.table[i].lexema == LEX_MAIN)
 			main = true;
-}
-
-void SA::SemanticAnalyzer::ParmsOfFunc()
-{
-	char buf[ID_MAXSIZE];
-	int par = 0, funcpar = 0;
-	for (int i = 0; i < lextable.size; i++)
-		if (lextable.table[i].lexema == LEX_EQUAL) {
-			while (lextable.table[i].lexema == LEX_SEMICOLON) {
-				i++;
-				if (lextable.table[i].lexema == LEX_ID && idtable.table[lextable.table[i].idxTI].idtype == IT::IDTYPE::F) {
-					strcpy(buf, idtable.table[lextable.table[i].idxTI].id);
-					for (int j = 0; j < i; j++)
-						if (lextable.table[j].lexema == LEX_ID && lextable.table[j - 2].lexema == LEX_FUNCTION
-							&& !strcmp(buf, idtable.table[lextable.table[j].idxTI].id)) {
-							j++;
-							for (j; lextable.table[j].lexema != LEX_RIGHTHESIS; j++)
-								if (lextable.table[j].lexema == LEX_ID) {
-									funcpar++;
-									i += 2;
-									if (idtable.table[lextable.table[j].idxTI].iddatatype == IT::IDDATATYPE::INT) {
-										if (idtable.table[lextable.table[i].idxTI].idtype == IT::IDTYPE::L
-											&& idtable.table[lextable.table[i].idxTI].iddatatype == IT::IDDATATYPE::INT)
-											par++;
-										if (lextable.table[i].lexema == LEX_ID && idtable.table[lextable.table[i].idxTI].iddatatype == IT::IDDATATYPE::INT)
-											par++;
-									}
-									if (idtable.table[lextable.table[j].idxTI].iddatatype == IT::IDDATATYPE::STR) {
-										if (idtable.table[lextable.table[i].idxTI].idtype == IT::IDTYPE::L
-											&& idtable.table[lextable.table[i].idxTI].iddatatype == IT::IDDATATYPE::STR)
-											par++;
-										if (lextable.table[i].lexema == LEX_ID)
-											if (idtable.table[lextable.table[i].idxTI].iddatatype == IT::IDDATATYPE::STR)
-												par++;
-									}
-								}
-							if (funcpar != par || lextable.table[i + 2].lexema != LEX_SEMICOLON)
-								throw ERROR_THROW_SEM(701, lextable.table[i].sn);
-						}
-				}
-			}
-		}
 }
 
 void SA::SemanticAnalyzer::ParmsOfStandFunc()
@@ -225,4 +183,12 @@ void SA::SemanticAnalyzer::CheckStringLiteralOperations()
 				&& idtable.table[lextable.table[i + 1].idxTI].iddatatype == IT::IDDATATYPE::STR)
 				if (std::find(operators.begin(), operators.end(), lextable.table[i + 2].lexema) != operators.end())
 					throw ERROR_THROW_SEM(712, lextable.table[i].sn);
+}
+
+void SA::SemanticAnalyzer::CheckWhile()
+{
+	for (int i = 0; i < lextable.size; i++)
+		if (lextable.table[i].lexema == LEX_WHILE)
+			if (idtable.table[lextable.table[i + 2].idxTI].iddatatype != IT::IDDATATYPE::INT)
+				throw ERROR_THROW_SEM(704, lextable.table[i].sn);
 }

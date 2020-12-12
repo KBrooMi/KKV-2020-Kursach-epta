@@ -16,6 +16,7 @@ namespace SA {
 		void FuncReturn();
 		void CorrectAmountOfParms();
 		void CheckStringLiteralOperations();
+		void CheckWhile();
 	public:
 		void Start(const Log::LOG& log);
 		SemanticAnalyzer(LT::LexTable lextable, IT::IdTable idtable);

@@ -38,13 +38,13 @@ namespace GRB
 	{
 #pragma region "gr"
 		Greibach greibach(NS('S'), TS('$'),
-			6,
+			7,
 			Rule(NS('S'), GRB_ERROR_SERIES + 0,
 				3,
-				Rule::Chain(6, TS('m'), TS('{'), TS('r'), NS('E'), TS(';'), TS('}')),
-				Rule::Chain(7, TS('m'), TS('{'), NS('N'), TS('r'), NS('E'), TS(';'), TS('}')),
+				Rule::Chain(6, TS('m'), TS('{'), TS('r'), NS('R'), TS(';'), TS('}')),
+				Rule::Chain(7, TS('m'), TS('{'), NS('N'), TS('r'), NS('R'), TS(';'), TS('}')),
 
-				Rule::Chain(13, TS('t'), TS('f'), TS('i'), TS('('), NS('F'), TS(')'), TS('{'), NS('N'), TS('r'), NS('E'), TS(';'), TS('}'), NS('S'))
+				Rule::Chain(13, TS('t'), TS('f'), TS('i'), TS('('), NS('F'), TS(')'), TS('{'), NS('N'), TS('r'), NS('R'), TS(';'), TS('}'), NS('S'))
 			),
 			Rule(NS('N'), GRB_ERROR_SERIES + 1,
 				17,
@@ -127,6 +127,11 @@ namespace GRB
 				Rule::Chain(1, TS('l')),
 				Rule::Chain(3, TS('i'), TS(','), NS('W')),
 				Rule::Chain(3, TS('l'), TS(','), NS('W'))
+			),
+			Rule(NS('R'), GRB_ERROR_SERIES + 6,
+				2,
+				Rule::Chain(1, TS('i')),
+				Rule::Chain(1, TS('l'))
 			)
 		);
 #pragma endregion
