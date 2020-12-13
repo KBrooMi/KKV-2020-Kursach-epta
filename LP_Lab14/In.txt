@@ -1,7 +1,7 @@
 dec func Sum(dec a, dec b){
 	new dec sum;
 	sum = a + b;
-	ret sum;
+	ret b;
 }
 
 main{	

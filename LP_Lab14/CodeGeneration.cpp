@@ -89,7 +89,7 @@ void CG::Generator::Code()
 				if (lextable.table[i].lexema == LEX_ID)
 				{
 					stackRet += 4;
-					out << '_' << idtable.table[lextable.table[i].idxTI].id << ": DWORD";
+					out << '_' << idtable.table[lextable.table[i].idxTI].scope << idtable.table[lextable.table[i].idxTI].id << ": DWORD";
 					if (lextable.table[i - 2].lexema != LEX_LEFTHESIS)
 						out << ", ";
 				}
@@ -177,11 +177,13 @@ void CG::Generator::Code()
 			while (lextable.table[i].lexema != LEX_SEMICOLON) {
 				if (lextable.table[i].lexema == LEX_ID || lextable.table[i].lexema == LEX_COPY) {
 					if (idtable.table[lextable.table[i].idxTI].idtype != IT::IDTYPE::F)
-						if (!func)
-							out << "\tpush\t\t" << '_' << idtable.table[lextable.table[i].idxTI].scope
-							<< idtable.table[lextable.table[i].idxTI].id << "\n";
-						else
-							out << "\tpush\t\t" << '_' << idtable.table[lextable.table[i].idxTI].id << "\n";
+						out << "\tpush\t\t" << '_' << idtable.table[lextable.table[i].idxTI].scope
+						<< idtable.table[lextable.table[i].idxTI].id << "\n";
+					/*if (!func)
+						out << "\tpush\t\t" << '_' << idtable.table[lextable.table[i].idxTI].scope
+						<< idtable.table[lextable.table[i].idxTI].id << "\n";
+					else
+						out << "\tpush\t\t" << '_' << idtable.table[lextable.table[i].idxTI].id << "\n";*/
 					else if (lextable.table[i].lexema == LEX_COPY) {
 						out << "\tpush\t\toffset " << '_' << idtable.table[lextable.table[i + 2].idxTI].scope
 							<< idtable.table[lextable.table[i + 2].idxTI].id << "\n";

@@ -33,9 +33,9 @@ _ConsoleWriteInt PROTO : DWORD
 	_mainiterator		DWORD 0 ;INT
 
 .code
-_Sum PROC _b: DWORD, _a: DWORD
-	push		_a
-	push		_b
+_Sum PROC _Sumb: DWORD, _Suma: DWORD
+	push		_Suma
+	push		_Sumb
 	;\/Сложение\/
 	pop		eax
 	pop		ebx
@@ -44,7 +44,7 @@ _Sum PROC _b: DWORD, _a: DWORD
 	;/\Сложение/\
 	pop			_Sumsum
 
-	mov		eax, _Sumsum
+	mov		eax, _Sumb
 	ret		8
 _Sum ENDP
 
