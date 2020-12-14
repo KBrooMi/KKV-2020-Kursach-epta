@@ -1,0 +1,19 @@
+﻿  CodeGeneration.cpp
+  Error.cpp
+  FST.cpp
+  GRB.cpp
+  In.cpp
+  IT.cpp
+  Log.cpp
+  LT.cpp
+  Main.cpp
+  MFST.cpp
+  Parm.cpp
+  pch.cpp
+  PolishNotation.cpp
+  SemanticAnalyzer.cpp
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 1113 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  LP_Lab14.vcxproj -> D:\Code\PL\LP_Lab14\Release\LP_Lab14.exe
