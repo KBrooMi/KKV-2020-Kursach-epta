@@ -9,9 +9,9 @@ SA::SemanticAnalyzer::SemanticAnalyzer(LT::LexTable lextable, IT::IdTable idtabl
 
 void SA::SemanticAnalyzer::Start(const Log::LOG& log)
 {
+	Types();
 	CheckReturn();
 	ParmsOfStandFunc();
-	Types();
 	FuncReturn();
 	CorrectAmountOfParms();
 	CheckStringLiteralOperations();
@@ -154,18 +154,27 @@ void SA::SemanticAnalyzer::CorrectAmountOfParms()
 				i++;
 				if (lextable.table[i].lexema == LEX_ID && idtable.table[lextable.table[i].idxTI].idtype == IT::IDTYPE::F) {
 					buf = idtable.table[lextable.table[i].idxTI].id;
+					int mainLine = i;
+					std::vector<IT::IDDATATYPE> types;
 					while (lextable.table[i].lexema != LEX_RIGHTHESIS) {
 						i++;
-						if (lextable.table[i].lexema == LEX_ID || lextable.table[i].lexema == LEX_LITERAL)
+						if (lextable.table[i].lexema == LEX_ID || lextable.table[i].lexema == LEX_LITERAL) {
 							parms++;
+							types.push_back(idtable.table[lextable.table[i].idxTI].iddatatype);
+						}
 					}
 					for (int j = 0; j < i; j++)
 						if (lextable.table[j].lexema == LEX_ID && idtable.table[lextable.table[j].idxTI].idtype == IT::IDTYPE::F
 							&& buf == idtable.table[lextable.table[j].idxTI].id) {
 							j++;
-							for (j; lextable.table[j].lexema != LEX_RIGHTHESIS; j++)
-								if (lextable.table[j].lexema == LEX_ID)
+							int k;
+							for (j, k = 0; lextable.table[j].lexema != LEX_RIGHTHESIS; j++)
+								if (lextable.table[j].lexema == LEX_ID) {
+									if (idtable.table[lextable.table[j].idxTI].iddatatype != types[k])
+										throw ERROR_THROW_SEM(705, lextable.table[mainLine].sn);
 									funcparms++;
+									k++;
+								}
 							break;
 						}
 				}
