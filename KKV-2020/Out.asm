@@ -19,7 +19,7 @@ _ConsoleWriteInt PROTO : DWORD
 	l3 DWORD 00000000000000000000000000000011y
 	l4 BYTE 'Hello, ', 0
 	l5 BYTE 'World!', 0
-	l6 BYTE 'asd', 0
+	l6 BYTE 'KypcoBou!', 0
 	l7 DWORD 00000000000000000000000000000000y
 .data
 	_Sumsum		DWORD 0 ;INT
@@ -30,6 +30,7 @@ _ConsoleWriteInt PROTO : DWORD
 	_mainsa		DWORD 0 ;STR
 	_mainsb		DWORD 0 ;STR
 	_mainconcatenated		DWORD 0 ;STR
+	_mainconcatenated2		DWORD 0 ;STR
 	_mainiterator		DWORD 0 ;INT
 
 .code
@@ -128,6 +129,15 @@ main PROC
 	push		offset l6
 	call		_Copy
 	push		_mainsb
+	call		_ConsoleWrite
+
+	push		_mainsa
+	push		_mainsb
+	call		_Concat
+	push		eax
+	pop			_mainconcatenated2
+
+	push		_mainconcatenated2
 	call		_ConsoleWrite
 
 	push		l2

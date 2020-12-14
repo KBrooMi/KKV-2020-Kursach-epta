@@ -103,13 +103,8 @@ IT::Entry::Entry(int idxfirstLE, const char* id, const char* scope, const char* 
 		this->literalID[0] = '-'; this->literalID[1] = '1'; this->literalID[2] = '\0';
 
 		if (iddatatype == IT::IDDATATYPE::INT)
-			if (is_digit(value)) {
-				std::bitset<32> bits(value);
-				this->value.vint = bits;
-			}
-			else
-				this->value.vint = 0;
-		else if (idtype != IT::IDTYPE::L) {
+			this->value.vint = 0;
+		else {
 			this->value.vstr.str[0] = '\0';
 			this->value.vstr.len = 0;
 		}

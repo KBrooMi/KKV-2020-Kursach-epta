@@ -31,7 +31,7 @@ main{
 	console concatenated; #Hello, World!
 	
 	new func Copy(str origin, str destination);
-	Copy('asd', sb);
+	Copy('KypcoBou!', sb);
 	console sb; #asd
 
 	new dec iterator;
