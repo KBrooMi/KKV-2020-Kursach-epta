@@ -2,6 +2,7 @@
 #include "Error.h"
 #include "FST.h"
 #include "In.h"
+#include <algorithm>
 
 #pragma region "Приколюхи"
 FST::RELATION::RELATION(char c, short ns)
@@ -98,7 +99,7 @@ void FST::Recognize(std::vector<std::pair<int, std::string>> lexems, std::ostrea
 		FST_LEFT_BRACKET , FST_RIGHT_BRACKET , FST_LEFT_BRACE , FST_RIGHT_BRACE , FST_PLUS , FST_MINUS , FST_MULTI ,
 		FST_DIVISION , FST_COMMA, FST_SEMICOLON, FST_EQUALLY, FST_NUMBERS, FST_LEFTSQUARE, FST_RIGHTSQUARE,
 		FST_PERCENT, FST_CONCAT, FST_COPY, FST_WHILE, FST_ID, FST_STRING_LITERAL };
-	int size = sizeof(fst_arr) / sizeof(FST), it_id = -1, currentLiteral = 0;
+	int size = sizeof(fst_arr) / sizeof(FST), it_id = -1, currentLiteral = 0, left_braces = 0, right_braces = 0;
 	bool param = false, _main = false, libFunc = false;
 #pragma endregion
 
@@ -106,6 +107,10 @@ void FST::Recognize(std::vector<std::pair<int, std::string>> lexems, std::ostrea
 	for (size_t i = 0; i < lexems.size(); i++) {
 		for (int j = 0; j < size; j++) {
 			if (execute(fst_arr[j], lexems[i].second)) {
+				if (fst_arr[j].symbol == LEX_RIGHTBRACE)
+					left_braces++;
+				else if (fst_arr[j].symbol == LEX_BRACELET)
+					right_braces++;
 				if (fst_arr[j].symbol == LEX_CONCAT || fst_arr[j].symbol == LEX_COPY)
 					libFunc = true;
 				if (fst_arr[j].symbol == LEX_SEMICOLON)
@@ -228,6 +233,8 @@ void FST::Recognize(std::vector<std::pair<int, std::string>> lexems, std::ostrea
 	}
 	if (_main == false)
 		throw ERROR_THROW(124);
+	else if (right_braces != left_braces)
+		throw ERROR_THROW(127);
 
 #pragma endregion
 }
