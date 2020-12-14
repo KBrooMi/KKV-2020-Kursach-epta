@@ -118,6 +118,8 @@ IT::Entry::Entry(int idxfirstLE, const char* id, const char* scope, const char* 
 		}
 		this->literalID[ID_MAXSIZE - 1] = '\0';
 		if (iddatatype == IT::IDDATATYPE::INT && is_digit(value)) {
+			if (value.size() > 32)
+				throw ERROR_THROW(132);
 			std::bitset<32> bits(value);
 			this->value.vint = bits;
 		}
