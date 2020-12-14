@@ -13,7 +13,7 @@ void SA::SemanticAnalyzer::Start(const Log::LOG& log)
 	CheckReturn();
 	ParmsOfStandFunc();
 	FuncReturn();
-	CorrectAmountOfParms();
+	CorrectAmountOfParmsAndSignatures();
 	CheckStringLiteralOperations();
 	CheckWhile();
 	CheckVarLikeFunc();
@@ -143,7 +143,7 @@ void SA::SemanticAnalyzer::FuncReturn()
 		}
 }
 
-void SA::SemanticAnalyzer::CorrectAmountOfParms()
+void SA::SemanticAnalyzer::CorrectAmountOfParmsAndSignatures()
 {
 	std::string buf;
 	buf.reserve(ID_MAXSIZE);
@@ -170,7 +170,7 @@ void SA::SemanticAnalyzer::CorrectAmountOfParms()
 							int k;
 							for (j, k = 0; lextable.table[j].lexema != LEX_RIGHTHESIS; j++)
 								if (lextable.table[j].lexema == LEX_ID) {
-									if (idtable.table[lextable.table[j].idxTI].iddatatype != types[k])
+									if (types.size() <= k || idtable.table[lextable.table[j].idxTI].iddatatype != types[k])
 										throw ERROR_THROW_SEM(705, lextable.table[mainLine].sn);
 									funcparms++;
 									k++;

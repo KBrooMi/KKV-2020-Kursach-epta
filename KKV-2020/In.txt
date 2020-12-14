@@ -13,7 +13,7 @@ main{
 	a = 10 * 0101;
 	b = 1010 / 10;
 	c = 1010 % 11;
-	out = Sum(b, c);
+	out = Sum(b);
 	
 	console a; #1010
 	console b; #101

@@ -13,7 +13,7 @@ namespace SA {
 		void ParmsOfStandFunc();
 		void Types();
 		void FuncReturn();
-		void CorrectAmountOfParms();
+		void CorrectAmountOfParmsAndSignatures();
 		void CheckStringLiteralOperations();
 		void CheckWhile();
 		void CheckVarLikeFunc();
