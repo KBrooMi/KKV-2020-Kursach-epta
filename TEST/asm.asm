@@ -44,7 +44,7 @@ _Sum PROC _Sumb: DWORD, _Suma: DWORD
 	;/\Сложение/\
 	pop			_Sumsum
 
-	mov		eax, _Sumb
+	mov		eax, _Sumsum
 	ret		8
 _Sum ENDP
 
