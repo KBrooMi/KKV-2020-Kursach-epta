@@ -30,6 +30,7 @@ std::string getType(IT::IDTYPE type) {
 int _tmain(int argc, _TCHAR* argv[]) {
 	setlocale(LC_ALL, "rus");
 	Log::LOG log = Log::LOG();
+
 	try {
 		Parm::PARM parm = Parm::getparm(argc, argv);
 		log = Log::getlog(parm.log);

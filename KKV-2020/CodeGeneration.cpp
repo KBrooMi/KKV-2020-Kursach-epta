@@ -44,7 +44,7 @@ void CG::Generator::Constants()
 			if (idtable.table[i].iddatatype == IT::IDDATATYPE::STR)
 				out << " BYTE " << idtable.table[i].value.vstr.str << ", 0";
 			if (idtable.table[i].iddatatype == IT::IDDATATYPE::INT)
-				out << " DWORD " << std::setw(32) << std::setfill('0') << idtable.table[i].value.vint << 'y';
+				out << " SDWORD " << std::setw(32) << std::setfill('0') << idtable.table[i].value.vint << 'y';
 			out << '\n';
 		}
 }
@@ -56,7 +56,7 @@ void CG::Generator::Data()
 		if (idtable.table[i].idtype == IT::IDTYPE::V) {
 			out << '\t';
 			out << '_' << idtable.table[i].scope << idtable.table[i].id;
-			out << "\t\tDWORD 0 ";
+			out << "\t\tSDWORD 0 ";
 			if (idtable.table[i].iddatatype == IT::IDDATATYPE::STR)
 				out << ";STR\n";
 			else
@@ -245,7 +245,7 @@ void CG::Generator::Code()
 					out << "\tcall _ConsoleWrite\n";
 					out << "\tinvoke\t\tExitProcess, -1\n";
 					out << "\t.endif\n";
-					out << "\tdiv\t\tebx\n";
+					out << "\tidiv\t\tebx\n";
 					out << "\tpush\t\teax\n";
 					out << "\t;/\\Деление/\\\n";
 				}
@@ -259,7 +259,7 @@ void CG::Generator::Code()
 					out << "\tcall _ConsoleWrite\n";
 					out << "\tinvoke\t\tExitProcess, -1\n";
 					out << "\t.endif\n";
-					out << "\tdiv\t\tebx\n";
+					out << "\tidiv\t\tebx\n";
 					out << "\tpush\t\tedx\n";
 					out << "\t;/\\Остаток от деления/\\\n";
 				}

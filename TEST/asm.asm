@@ -13,24 +13,24 @@ _ConsoleWriteInt PROTO : DWORD
 .stack 4096
 .const
 	_DIVISION_BY_ZERO_ERROR BYTE 'Ошибка выполнения: деление на ноль', 0
-	l0 DWORD 00000000000000000000000000000010y
-	l1 DWORD 00000000000000000000000000000101y
-	l2 DWORD 00000000000000000000000000001010y
-	l3 DWORD 00000000000000000000000000000011y
+	l0 SDWORD 00000000000000000000000000000010y
+	l1 SDWORD 00000000000000000000000000000101y
+	l2 SDWORD 00000000000000000000000000001010y
+	l3 SDWORD 00000000000000000000000000000011y
 	l4 BYTE 'Hello, ', 0
 	l5 BYTE 'World!', 0
 	l6 BYTE 'KypcoBou!', 0
-	l7 DWORD 00000000000000000000000000000000y
+	l7 SDWORD 00000000000000000000000000000000y
 .data
-	_Sumsum		DWORD 0 ;INT
-	_maina		DWORD 0 ;INT
-	_mainb		DWORD 0 ;INT
-	_mainc		DWORD 0 ;INT
-	_mainout		DWORD 0 ;INT
-	_mainsa		DWORD 0 ;STR
-	_mainsb		DWORD 0 ;STR
-	_mainconcatenated		DWORD 0 ;STR
-	_mainiterator		DWORD 0 ;INT
+	_Sumsum		SDWORD 0 ;INT
+	_maina		SDWORD 0 ;INT
+	_mainb		SDWORD 0 ;INT
+	_mainc		SDWORD 0 ;INT
+	_mainout		SDWORD 0 ;INT
+	_mainsa		SDWORD 0 ;STR
+	_mainsb		SDWORD 0 ;STR
+	_mainconcatenated		SDWORD 0 ;STR
+	_mainiterator		SDWORD 0 ;INT
 
 .code
 _Sum PROC _Sumb: DWORD, _Suma: DWORD
@@ -70,7 +70,7 @@ main PROC
 	call _ConsoleWrite
 	invoke		ExitProcess, -1
 	.endif
-	div		ebx
+	idiv		ebx
 	push		eax
 	;/\Деление/\
 	pop			_mainb
@@ -86,7 +86,7 @@ main PROC
 	call _ConsoleWrite
 	invoke		ExitProcess, -1
 	.endif
-	div		ebx
+	idiv		ebx
 	push		edx
 	;/\Остаток от деления/\
 	pop			_mainc
