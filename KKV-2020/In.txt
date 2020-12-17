@@ -5,11 +5,14 @@ dec func Sum(dec a, dec b){
 }
 
 main{
+	new func Concat(str str1, str str2);
+	new func Copy(str origin, str destination);
+
 	new dec a;
 	new dec b;
 	new dec c;
 	new dec out;
-	
+
 	a = 10 * 0101;
 	b = 1010 / 10;
 	c = 1010 % 11;
@@ -25,12 +28,10 @@ main{
 	sa = 'Hello, ';
 	sb = 'World!';
 
-	new func Concat(str str1, str str2);
 	new str concatenated;
 	concatenated = Concat(sa, sb);
 	console concatenated; #Hello, World!
 	
-	new func Copy(str origin, str destination);
 	Copy('KypcoBou!', sb);
 	console sb; #asd
 
